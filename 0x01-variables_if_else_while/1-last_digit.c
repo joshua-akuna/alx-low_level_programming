@@ -28,23 +28,17 @@ int main(void)
 	srand(time(0));
 	/*Generating a random integer for n*/
 	n = rand() - RAND_MAX / 2;
-
-	/*Get the last digit of the variable n*/
 	res = n % 10;
 	res = abs(res);
-	
 	strcpy(f1, "and is greater than 5");
 	strcpy(f2, "and is 0");
 	strcpy(f3, "and is less than 6 and not 0");
 
-	/*Checks for the following conditions*/
 	if (res > 5)
 		printf("Last digit of %d is %d %s\n", n,  res, f1);
-	if (res == 0)
+	else if (res == 0)
 		printf("Last digit of %d is %d %s\n", n, res, f2);
 	else
 		printf("Last digit of %d is %d %s\n", n, res, f3);
-
-	/*return 0*/
 	return (0);
 }
