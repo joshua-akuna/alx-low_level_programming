@@ -29,7 +29,6 @@ int main(void)
 	/*Generating a random integer for n*/
 	n = rand() - RAND_MAX / 2;
 	res = n % 10;
-	res = abs(res);
 	strcpy(f1, "and is greater than 5");
 	strcpy(f2, "and is 0");
 	strcpy(f3, "and is less than 6 and not 0");
