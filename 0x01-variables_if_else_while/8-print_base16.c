@@ -3,7 +3,7 @@
 /**
  * main - The entry point for the program
  *
- * Description: 'Printsall the numbers of base16 in lower case
+ * Description: 'Prints all the numbers of base16 in lower case
  * followed by a new line using the putchar function only.'
  *
  * Return: Always 0 (if successful)

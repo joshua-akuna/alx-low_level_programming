@@ -3,8 +3,7 @@
 /**
  * main - The entry point for the program
  *
- * Description: 'Printsall the numbers of base16 in lower case
- * followed by a new line using the putchar function only.'
+ * Description: 'Prints all possible combinations of single-digit numbers'
  *
  * Return: Always 0 (if successful)
  */
