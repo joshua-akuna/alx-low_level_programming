@@ -7,11 +7,11 @@
 
 void times_table(void)
 {
-	int row, col, res, digit;
+	int row, col, res;
 
 	for (row = 0; row < 10; row++)
 	{
-		_print('0');
+		_putchar('0');
 
 		for (col = 0; col < 10; col++)
 		{
@@ -29,5 +29,5 @@ void times_table(void)
 		}
 
 		_putchar('\n');
-	}
+i	}
 }
