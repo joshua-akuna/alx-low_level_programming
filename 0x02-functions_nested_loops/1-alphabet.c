@@ -1,13 +1,21 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
- * main - the entry point for the program.
- * Description: the program prints the alphabet in lowercase.
+ * print_alphabet - a custom method that prints the alphabet in lowercase.
  * Return: return (0) always if successful.
  */
 
-int main(void)
+void print_alphabet(void)
 {
-	print_alphabet();
-	return (0);
+	char start, end;
+
+	start = 'a', end = 'z';
+
+	while (start <= end)
+	{
+		_putchar(start);
+		start++;
+	}
+	_putchar('\n');
 }
