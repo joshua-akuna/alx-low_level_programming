@@ -4,7 +4,7 @@
  * _islower - the functions determines if c parameter is a
  * lowercase alphabet or not.
  * @c: an int argument to be checked.
- * Return: returns (0) if its a lowercase alphabet, else return (1)
+ * Return: returns (1) if its a lowercase alphabet, else return (0)
  */
 int _islower(int c)
 {
