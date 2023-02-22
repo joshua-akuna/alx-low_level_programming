@@ -27,7 +27,7 @@ int main(void)
 		prev = cur;
 		cur = fib;
 	}
-	
+
 	printf("%ld\n", even_sum);
 
 	return (0);
