@@ -10,13 +10,12 @@ int main(void)
 {
 	unsigned long fib = 0, cur = 1, prev = 0, count;
 	unsigned long fib1_div1, fib1_div2, fib2_div1, fib2_div2;
-	unsigned long div1, div2, divisor = 1000000;
+	unsigned long div1, div2, divisor = 10000000000;
 
 	for (count = 0; count < 92; count++)
 	{
 		fib = cur + prev;
 		printf("%lu, ", fib);
-		
 		prev = cur;
 		cur = fib;
 	}
