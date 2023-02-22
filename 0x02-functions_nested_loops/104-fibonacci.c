@@ -10,7 +10,7 @@ int main(void)
 {
 	unsigned long fib = 0, cur = 1, prev = 0, count;
 	unsigned long fib1_div1, fib1_div2, fib2_div1, fib2_div2;
-	unsigned long div1, div2, divisor = 10000000000;
+	unsigned long div1, div2, divisor = 1000000;
 
 	for (count = 0; count < 92; count++)
 	{
@@ -20,12 +20,13 @@ int main(void)
 		prev = cur;
 		cur = fib;
 	}
-	fib1_div1 = cur / divisor;
-	fib2_div1 = prev / divisor;
-	fib1_div2 = cur % divisor;
-	fib2_div2 = prev % divisor;
 
-	for (count = 93; count < 99; count++)
+	fib1_div1 = prev / divisor;
+	fib2_div1 = cur / divisor;
+	fib1_div2 = prev % divisor;
+	fib2_div2 = cur % divisor;
+
+	for (count = 92; count < 98; count++)
 	{
 		div1 = fib1_div1 + fib2_div1;
 		div2 = fib1_div2 + fib2_div2;
