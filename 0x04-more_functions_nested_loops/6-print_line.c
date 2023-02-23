@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_line: prints '_', 'n' times.
+ * print_line - prints '_', 'n' times.
  * @n: an integer parameter.
  */
 
