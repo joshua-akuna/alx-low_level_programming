@@ -13,18 +13,22 @@
  * Return: the dest pointer.
  */
 
-char * _strcpy(char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
 	size_t i;
 	unsigned int n;
 
 	n = strlen(src);
-	
-	for (i = 0; i < n && src[i] != '\0'; i++)
+
+	for (i = 0; i < n; i++)
+	{
+		if (src[i] == '\0')
+			break;
 		dest[i] = src[i];
-	
+	}
+
 	for (; i < n; i++)
 		dest[i] = '\0';
 
-	return dest;
+	return (dest);
 }
