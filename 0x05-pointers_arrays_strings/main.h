@@ -7,5 +7,6 @@ int _strlen(char *s);
 void _puts(char *str);
 void print_rev(char *str);
 void _putchar(int);
+void rev_string(char *s);
 
 #endif /* MAIN_H */
