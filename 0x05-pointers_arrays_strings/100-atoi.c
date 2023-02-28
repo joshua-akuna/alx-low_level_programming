@@ -18,14 +18,14 @@ int _atoi(char *s)
 		if (s[index] == 45)
 			sign *= -1;
 
-		while(s[index] >= '0' && s[index] <= '9')
+		while (s[index] >= '0' && s[index] <= '9')
 		{
 			end_of_ints = 1;
 			res = res * 10 + s[index] - '0';
 			index++;
 		}
 
-		if(end_of_ints)
+		if (end_of_ints)
 			break;
 		index++;
 	}
