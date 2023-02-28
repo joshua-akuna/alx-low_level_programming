@@ -18,7 +18,7 @@ int main(void)
 	while (sum < 2772)
 	{
 		pwd[i] = 33 + rand() % 94;
-		sum += pwd[i];
+		sum += pwd[i++];
 	}
 
 	pwd[i] = '\0';
@@ -33,7 +33,7 @@ int main(void)
 
 		for (i = 0; pwd[i]; i++)
 		{
-			if (pwd[i] >= 33 + num1)
+			if (pwd[i] >= (33 + num1))
 			{
 				pwd[i] -= num1;
 				break;
@@ -43,7 +43,7 @@ int main(void)
 
 		for (i = 0; pwd[i]; i++)
 		{
-			if (pwd[i] >= 33 + num2 )
+			if (pwd[i] >= (33 + num2))
 			{
 				pwd[i] -= num2;
 				break;
@@ -51,7 +51,7 @@ int main(void)
 		}
 	}
 
-	printf("%s", pwd);
+	printf("%s\n", pwd);
 
 	return (0);
 }
