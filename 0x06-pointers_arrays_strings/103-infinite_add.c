@@ -73,7 +73,7 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	if (ten == 1)
 	{
 		r[i] = '1';
-		r[i+ 1] = 0;
+		r[i + 1] = 0;
 	}
 	else
 	{
