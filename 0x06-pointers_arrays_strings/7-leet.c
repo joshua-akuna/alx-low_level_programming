@@ -10,22 +10,23 @@
 
 char *leet(char *str)
 {
-	int i, len;
+	char *ptr = str;
+	int i;
+	char encrypt[][10] = { { 'a', 'A', 't', 'T', 'o', 'O', 'e', 'E', 'l', 'L'}
+				  , { '4', '4', '7', '7', '0', '0', '3', '3', '1', '1'} };
 
-	len = strlen(str);
-
-	for (i = 0; i < len && str[i] != '\0'; i++)
+	while (*ptr)
 	{
-		if (str[i] == 'a' || str[i] == 'A')
-			str[i] = '4';
-		else if (str[i] == 'e' || str[i] == 'E')
-			str[i] = '3';
-		else if (str[i] == 'o' || str[i] == 'O')
-			str[i] = '0';
-		else if (str[i] == 't' || str[i] == 'T')
-			str[i] = '7';
-		else if (str[i] == 'l' || str[i] == 'L')
-			str[i] = '1';
+		if (*ptr == 'a' || *ptr == 'A' || *ptr == 'e' || *ptr == 'E'
+		    || *ptr == 'o' || *ptr == 'O' || *ptr == 't' || *ptr == 'T'
+		    || *ptr == 'l' || *ptr == 'L')
+		{
+			i = 0;
+			while (encrypt[0][i] != *ptr)
+				i++;
+			*ptr = encrypt[1][i];
+		}
+		ptr++;
 	}
 	return (str);
 }
