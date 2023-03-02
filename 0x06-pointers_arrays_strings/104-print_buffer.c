@@ -3,7 +3,7 @@
 /**
  * print_buffer- prints a buffer;
  * @b: char pointer to the buffer.
- * size: integer for size of buffer to print.
+ * @size: integer for size of buffer to print.
  */
 
 void print_buffer(char *b, int size)
@@ -13,11 +13,9 @@ void print_buffer(char *b, int size)
 
 	if (size == 0)
 		printf("\n");
-
 	while (size > 0)
 	{
 		printf("%08x:", count);
-
 		bytes_printed = 0;
 		while (bytes_printed < 10 && size > 0)
 		{
@@ -29,7 +27,6 @@ void print_buffer(char *b, int size)
 			bytes_printed++;
 			count++;
 		}
-
 		while (count % 10 != 0)
 		{
 			if (count % 2 == 0)
@@ -38,7 +35,6 @@ void print_buffer(char *b, int size)
 			count++;
 		}
 		printf(" ");
-
 		bytes_printed = 0;
 		while (bytes_printed < 10 && _size > 0)
 		{
