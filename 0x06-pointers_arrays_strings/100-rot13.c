@@ -1,5 +1,5 @@
 /**
- * rot13 - rotates each character of a string by 13 steps alpahbetically forward.
+ * rot13 - rotates each character in a string by 13 alphabetically.
  * @str: a pointer to a string.
  * Return: Alwasys str.
  */
@@ -20,9 +20,9 @@ char *rot13(char *str)
 
 			*ptr += 13;
 			break;
-		}	
+		}
 		ptr++;
 	}
-	
+
 	return (str);
 }
