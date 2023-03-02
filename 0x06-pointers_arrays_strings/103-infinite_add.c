@@ -19,12 +19,10 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	num2--;
 	size_r--;
 	r[size_r] = 0;
-
 	while (num1 != n1 - 1 && num2 != n2 - 1)
 	{
 		r[i] = *num1 - '0' + *num2 + ten;
 		ten = 0;
-
 		if (r[i] > '9')
 		{
 			r[i] -= 10;
@@ -36,12 +34,10 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		if (i == size_r && (ten == 1 || num1 != n1 - 1 || num2 != n2 - 1))
 			return (0);
 	}
-
 	while (num1 != n1 - 1)
 	{
 		r[i] = *num1 + ten;
 		ten = 0;
-
 		if (r[i] > '9')
 		{
 			r[i] -= 10;
@@ -49,11 +45,9 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		}
 		num1--;
 		i++;
-
 		if (i == size_r && (ten == 1 || num1 != n1 - 1))
 			return (0);
 	}
-
 	while (num2 != n2 - 1)
 	{
 		r[i] = *num2 + ten;
@@ -65,11 +59,9 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		}
 		num2--;
 		i++;
-
 		if (i == size_r && (ten == 1 || num2 != n2 - 1))
 			return (0);
 	}
-
 	if (ten == 1)
 	{
 		r[i] = '1';
@@ -79,7 +71,6 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	{
 		r[i--] = 0;
 	}
-
 	index = 0;
 	while (i >= index)
 	{
