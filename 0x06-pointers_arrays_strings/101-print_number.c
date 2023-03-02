@@ -16,11 +16,10 @@ void print_number(int n)
 	}
 
 	temp = n;
-	temp /= 10;
 
-	if (temp)
+	if (temp / 10)
 	{
-		print_number(temp);
+		print_number(temp / 10);
 	}
 	_putchar((n % 10) + '0');
 }
