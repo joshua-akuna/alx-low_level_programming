@@ -1,4 +1,3 @@
-#include <stdio.h>
 /**
  * infinite_add- adds 2 nummbers.
  * @n1: pointer to a string of digits.
@@ -9,84 +8,86 @@
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
+	int i = 0, index, ten = 0, temp = 0;
 	char *num1 = n1, *num2 = n2;
-	int init = 0, final = 0, ten = 0, temp;
 
-	while (*num1)
+	while (*num1 != 0)
 		num1++;
-	while (*num2)
+	while (*num2 != 0)
 		num2++;
 	num1--;
 	num2--;
-	r[--size_r] = 0;
+	size_r--;
+	r[size_r] = 0;
 
-	while ((num1) != n1 - 1 && (num2) != n2 - 1)
+	while (num1 != n1 - 1 && num2 != n2 - 1)
 	{
-		r[init] = *num1 - '0' + *num2 + ten;
+		r[i] = *num1 - '0' + *num2 + ten;
 		ten = 0;
 
-		if (r[init] > '9')
+		if (r[i] > '9')
 		{
-			r[init] -= 10;
+			r[i] -= 10;
 			ten++;
 		}
 		num1--;
 		num2--;
-		init++;
-		if (init == size_r && (ten == 1 || num1 != n1 - 1 || num2 != n2 - 1))
+		i++;
+		if (i == size_r && (ten == 1 || num1 != n1 - 1 || num2 != n2 - 1))
 			return (0);
 	}
 
 	while (num1 != n1 - 1)
 	{
-		r[init] = *num1 + ten;
+		r[i] = *num1 + ten;
 		ten = 0;
 
-		if (r[init] > '9')
+		if (r[i] > '9')
 		{
-			r[init] -= 10;
+			r[i] -= 10;
 			ten++;
 		}
 		num1--;
-		init++;
+		i++;
 
-		if (init == size_r && (ten == 1 || num1 != n1 - 1))
+		if (i == size_r && (ten == 1 || num1 != n1 - 1))
 			return (0);
 	}
 
 	while (num2 != n2 - 1)
 	{
-		r[init] = *num2 + ten;
+		r[i] = *num2 + ten;
 		ten = 0;
-		if (r[init] > '9')
+		if (r[i] > '9')
 		{
-			r[init] -= 10;
+			r[i] -= 10;
 			ten++;
 		}
 		num2--;
-		init++;
+		i++;
 
-		if (init == size_r && (ten == 1 || num2 != n2 - 1))
+		if (i == size_r && (ten == 1 || num2 != n2 - 1))
 			return (0);
 	}
 
 	if (ten == 1)
 	{
-		r[init] = '1';
-		r[init + 1] = 0;
+		r[i] = '1';
+		r[i+ 1] = 0;
 	}
 	else
 	{
-		r[init--] = 0;
+		r[i--] = 0;
 	}
 
-	while (init != final)
+	index = 0;
+	while (i >= index)
 	{
-		temp = r[init];
-		r[init] = r[final];
-		r[final] = temp;
-		init--;
-		final++;
+		temp = r[i];
+		r[i] = r[index];
+		r[index] = temp;
+		i--;
+		index++;
 	}
 	return (r);
 }
