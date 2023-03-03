@@ -17,8 +17,9 @@ char *move_pointer(char *str)
  * @overflow: the number of tens carried over.
  * @index: an integer parameter.
  * @str: pointer to the string of digits
+ * Return: Always index
  */
-void handle_overflow(char *str, int overflow, int index)
+int handle_overflow(char *str, int overflow, int index)
 {
 	if (overflow == 1)
 	{
@@ -29,6 +30,8 @@ void handle_overflow(char *str, int overflow, int index)
 	{
 		str[index--] = 0;
 	}
+
+	return index;
 }
 
 /**
@@ -118,7 +121,7 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		if (size_r == index && (_n2 != n2 - 1 || overflow == 1))
 			return (0);
 	}
-	handle_overflow(r, overflow, index);
+	index = handle_overflow(r, overflow, index);
 	reverse_string(r, index);
 	return (r);
 }
