@@ -31,7 +31,7 @@ int handle_overflow(char *str, int overflow, int index)
 		str[index--] = 0;
 	}
 
-	return index;
+	return (index);
 }
 
 /**
