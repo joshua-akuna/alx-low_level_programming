@@ -18,8 +18,6 @@ char *_strstr(char *haystack, char *needle)
 	{
 		hasFoundMatch = 1;
 		j = 0;
-		if (needle[j] == 0)
-			return (haystack)
 		if (haystack[i] == needle[j])
 		{
 			while (needle[j] != 0)
@@ -29,6 +27,9 @@ char *_strstr(char *haystack, char *needle)
 					hasFoundMatch = 0;
 					break;
 				}
+
+				if (needle[j] == 0)
+					return (haystack);
 
 				j++;
 			}
