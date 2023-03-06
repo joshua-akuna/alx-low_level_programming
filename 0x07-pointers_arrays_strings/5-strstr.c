@@ -27,6 +27,9 @@ char *_strstr(char *haystack, char *needle)
 					hasFoundMatch = 0;
 					break;
 				}
+
+				if (needle[j] == 0)
+					return (haystack + i);
 				j++;
 			}
 
