@@ -1,4 +1,5 @@
 int _is_palindrome(char *s, int start, int end);
+int _strlen(char *s);
 
 /**
  * is_palindrome - determines if a string is a palidrome.
@@ -7,17 +8,27 @@ int _is_palindrome(char *s, int start, int end);
  */
 int is_palindrome(char *s)
 {
-	int index = 0, len = 0;
+	int len;
 
 	if (*s == '\0')
 		return (0);
 	if (*(s + 1) == '\0')
 		return (1);
-
-	while (*(s + index++))
-		len++;
+	len = _strlen(s);
 
 	return (_is_palindrome(s, 0, len - 1));
+}
+
+/**
+ * _strlen- determines the lenght of a string.
+ * @s: a char pointer to a string.
+ * Return: Always the length of the strirng.
+ */
+int _strlen(char *s)
+{
+	if (*s == '\0')
+		return (0);
+	return (1 + _strlen(s + 1));
 }
 
 /**
