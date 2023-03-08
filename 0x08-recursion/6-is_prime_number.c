@@ -11,7 +11,7 @@ int is_prime_number(int n)
 		return (0);
 
 	return (is_not_divisible(n, 2));
-} 
+}
 
 /**
  * isdivisible - determines if 'n' is divisible by "divisor" or a prime number.
