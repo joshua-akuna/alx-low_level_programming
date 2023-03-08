@@ -14,7 +14,8 @@ int is_prime_number(int n)
 }
 
 /**
- * isdivisible - determines if 'n' is divisible by "divisor" or a prime number.
+ * is_not_divisible - determines if 'n' is divisible
+ * by "divisor" or a prime number.
  * @n: an int argument.
  * @divisor: a random int argument.
  * Return: 1 if 'n' is a prime number else 0.
