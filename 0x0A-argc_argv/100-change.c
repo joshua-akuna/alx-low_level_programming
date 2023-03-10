@@ -13,7 +13,7 @@ int minNumOfCents(int amount);
  */
 int main(int argc, char *argv[])
 {
-	long int amount, cents;
+	long int amount;
 
 	if (argc != 2)
 	{
