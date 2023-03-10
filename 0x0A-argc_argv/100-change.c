@@ -21,16 +21,18 @@ int main(int argc, char *argv[])
 		return (1);
 	}
 
+	if (argc < 0)
+		return (0);
+
 	amount = atoi(*(argv + 1));
 	if (amount < 0)
 	{
-		cents = 0;
+		printf("%d\n", 0);
 	}
 	else
 	{
-		cents = minNumOfCents(amount);
+		printf("%ld\n", minNumOfCents(amount));
 	}
-	printf("%ld\n", cents);
 
 	return (0);
 }
