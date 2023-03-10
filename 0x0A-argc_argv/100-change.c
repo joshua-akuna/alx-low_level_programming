@@ -13,7 +13,7 @@ int minNumOfCents(int amount);
  */
 int main(int argc, char *argv[])
 {
-	int amount, cents;
+	long int amount, cents;
 
 	if (argc != 2)
 	{
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	{
 		cents = minNumOfCents(amount);
 	}
-	printf("%d\n", cents);
+	printf("%ld\n", cents);
 
 	return (0);
 }
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 int minNumOfCents(int amount)
 {
 	int coins[] = {25, 10, 5, 2, 1};
-	int len = 5, i, res;
+	long int len = 5, i, res;
 
 	if (amount == 0)
 		return (0);
