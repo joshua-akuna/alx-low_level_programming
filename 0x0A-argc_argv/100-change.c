@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		printf("%ld\n", minNumOfCents(amount));
+		printf("%d\n", minNumOfCents(amount));
 	}
 
 	return (0);
