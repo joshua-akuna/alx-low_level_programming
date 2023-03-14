@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
  * word_len - returns the length of a string.
