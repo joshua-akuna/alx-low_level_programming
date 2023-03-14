@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 /**
  * _str_len - returns the size of a string.
@@ -34,8 +33,6 @@ char *str_concat(char *s1, char *s2)
 {
 	int len1, len2, i, j;
 	char *str;
-
-	printf("%s%s\n", s1, s2);
 
 	len1 = _str_len(s1);
 	len2 = _str_len(s2);
