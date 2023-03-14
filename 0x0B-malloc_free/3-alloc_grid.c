@@ -30,7 +30,7 @@ int *create_row(int width)
 int **alloc_grid(int width, int height)
 {
 	int **grid = NULL;
-	int i;
+	int i, j;
 
 	if (width <= 0 || height <= 0)
 		return (0);
@@ -46,6 +46,11 @@ int **alloc_grid(int width, int height)
 
 		if (*(grid + i) == NULL)
 		{
+			j = i;
+			while (j >= 0)
+			{
+				free(*(grid + j));
+			}
 			free(grid);
 			return (NULL);
 		}
