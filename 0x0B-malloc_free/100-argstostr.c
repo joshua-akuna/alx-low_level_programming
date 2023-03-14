@@ -1,24 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 /**
- * _str_len - determines the length of a string.
- * @s: pointer to a string.
- * Return: size of string.
- */
-int _str_len(char *s)
-{
-	int len = 0;
-
-	if (*s == '\0')
-		return (0);
-
-	while (*(s + len))
-		len++;
-
-	return (len + 1);
-}
-
-/**
  * argstostr - contatenates all the strings in an input array argument.
  * @ac: count of strings in "av".
  * @av: an array of strings.
@@ -34,7 +16,7 @@ char *argstostr(int ac, char **av)
 		return (NULL);
 
 	for (i = 0; i < ac; i++)
-		len += _str_len(*(av + i));
+		len += sizeof(*(av + i)) + 1;
 
 	str = malloc(sizeof(char) * len);
 
