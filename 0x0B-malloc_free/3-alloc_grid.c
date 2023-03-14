@@ -6,15 +6,10 @@
  */
 int *create_row(int width)
 {
-	int *row, i;
-
-	row = malloc(sizeof(width) * width);
-
-	if (row == NULL)
-		return (NULL);
+	int row[width], i;
 
 	for (i = 0; i < width; i++)
-		*(row + i) = 0;
+		row[i] = 0;
 
 	return (row);
 }
@@ -45,7 +40,10 @@ int **alloc_grid(int width, int height)
 		*(grid + i) = create_row(width);
 
 		if (*(grid + i) == NULL)
+		{
+			free(grid);
 			return (NULL);
+		}
 	}
 
 	return (grid);
