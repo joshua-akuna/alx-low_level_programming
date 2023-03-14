@@ -1,8 +1,8 @@
 #include <stdlib.h>
 /**
  * fill_row - creates a 1-D array of size "width".
- * @width: an int argument.
- * Return: a pointer to the int array or NULL if malloc fails.
+ * @row: a 1-D array
+ * @width: an int argument for size of the array.
  */
 void fill_row(int *row, int width)
 {
