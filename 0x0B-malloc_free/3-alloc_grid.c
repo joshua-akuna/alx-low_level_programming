@@ -6,7 +6,12 @@
  */
 int *create_row(int width)
 {
-	int row[width], i;
+	int *row, i;
+
+	row = malloc(sizeof(width) * width);
+
+	if (row == NULL)
+		return (NULL);
 
 	for (i = 0; i < width; i++)
 		row[i] = 0;
