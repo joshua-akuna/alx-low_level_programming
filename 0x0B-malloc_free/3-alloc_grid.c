@@ -1,22 +1,15 @@
 #include <stdlib.h>
 /**
- * create_row - creates a 1-D array of size "width".
+ * fill_row - creates a 1-D array of size "width".
  * @width: an int argument.
  * Return: a pointer to the int array or NULL if malloc fails.
  */
-int *create_row(int width)
+void fill_row(int *row, int width)
 {
-	int *row, i;
-
-	row = malloc(sizeof(width) * width);
-
-	if (row == NULL)
-		return (NULL);
+	int i;
 
 	for (i = 0; i < width; i++)
-		row[i] = 0;
-
-	return (row);
+		*(row + i) = 0;
 }
 
 /**
@@ -30,30 +23,27 @@ int *create_row(int width)
 int **alloc_grid(int width, int height)
 {
 	int **grid = NULL;
-	int i, j;
+	int i;
 
 	if (width <= 0 || height <= 0)
 		return (0);
 
-	grid = malloc(sizeof(*grid) * height);
+	grid = malloc(sizeof(int *) * height);
 
 	if (grid == NULL)
 		return (NULL);
 
 	for (i = 0; i < height; i++)
 	{
-		*(grid + i) = create_row(width);
-
+		*(grid + i) = malloc(sizeof(int) * width);
 		if (*(grid + i) == NULL)
 		{
-			j = i;
-			while (j >= 0)
-			{
-				free(*(grid + j));
-			}
+			for (;i >= 0; i--)
+				free(*(grid + i));
 			free(grid);
 			return (NULL);
 		}
+		fill_row(*(grid + i), width);
 	}
 
 	return (grid);
