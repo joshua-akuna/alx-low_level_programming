@@ -23,10 +23,13 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 
 	while (*(s1 + i++))
 		size++;
+
 	i = 0;
+
 	while (*(s2 + i++))
 		size2++;
-	if(n > size2++)
+
+	if (n > size2++)
 		n = size2;
 
 	size += n + 1;
@@ -37,9 +40,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 		return (NULL);
 
 	for (i = 0; s1[i];)
-	{
 		str[j++] = s1[i++];
-	}
 
 	for (i = 0; i < n && s2[i];)
 		str[j++] = s2[i++];
