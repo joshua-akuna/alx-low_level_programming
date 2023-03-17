@@ -6,6 +6,7 @@ int _str_len(char *str);
 char *times(char *num, char digit, int pad);
 char *_add(char *res, char *cur);
 void print_rev_str(char *str);
+void _print(char *str);
 
 /**
  * main- multiplies two positive integers.
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		printf("Error\n");
+		_print("Error");
 		exit(98);
 	}
 
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 			{
-				printf("Error\n");
+				_print("Error");
 				exit(98);
 			}
 		}
@@ -44,13 +45,27 @@ int main(int argc, char *argv[])
 		pad++;
 	}
 	print_rev_str(res);
-	_putchar('\n');
 	free(res);
 	return (0);
 }
 
 /**
- * print_rev_str - prints a pointer to a string argument in reverse.
+ * _print - prints a string argument.
+ * @str: pointer to a string srgument.
+ */
+void _print(char *str)
+{
+	int len, i;
+
+	len = _str_len(str);
+
+	for (i = 0; i < len; i++)
+		_putchar(str[i]);
+	_putchar('\n');
+}
+
+/**
+ * print_rev_str - prints a string argument in reverse.
  * @str: pointer to a string srgument.
  */
 void print_rev_str(char *str)
@@ -61,6 +76,7 @@ void print_rev_str(char *str)
 
 	for (i = len - 1; i >= 0; i--)
 		_putchar(str[i]);
+	_putchar('\n');
 }
 
 /**
@@ -82,7 +98,7 @@ char *_add(char *res, char *cur)
 		res = malloc(len_c);
 		if (!res)
 		{
-			printf("Error\n");
+			_print("Error");
 			exit(89);
 		}
 	}
