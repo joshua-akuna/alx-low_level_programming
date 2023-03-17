@@ -1,140 +1,174 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "main.h"
 
+int _str_len(char *str);
+char *times(char *num, char digit, int pad);
+char *_add(char *res, char *cur);
+void print_rev_str(char *str);
 /**
- * _print - prints a string pointed by the pointer
- * @s: pointer to a string
+ * main - multiplies two positive integers.
+ * @argc: number of input parameters.
+ * @argv: an array of input parameters.
+ * Result: 
  */
-void _print(char *s)
-{
-	while (*s)
-		_putchar(*s++);
-}
 
-/**
- * numstrchk - checks if the string is a valid positive integer.
- * @s: pointer to a string.
- *
- * Return: Length of string. Exit 98 if not numeric.
- */
-long int numstrchk(char *s)
+int main(int argc, char *argv[])
 {
-	long int len = 0;
+	int i, j, len, pad = 0;
+	char *res = 0, *cur = 0;
 
-	if (*s == 0)
+	if (argc != 3)
 	{
-		_print("Error\n");
+		printf("Error\n");
 		exit(98);
 	}
 
-	while (*s)
+	for (i = 1; i < argc; i++)
 	{
-		if (*s < '0' || *s > '9')
+		for (j = 0; argv[i][j]; j++)
 		{
-			_print("Error\n");
-			exit(98);
-		}
-		*s -= '0';
-		len++;
-		s++;
-	}
-	return (len);
-}
-
-/**
- * _calloc_buffer - allocate a block of memory of size * num and init to '0'
- *
- * @num: number of elements to allocate
- * @size: size of element
- *
- * Return: pointer to allocated space, exit 98 on failure
- */
-void *_calloc_buffer(long int num, long int size)
-{
-	void *ret;
-	char *ptr;
-
-	ret = malloc(num * size);
-	if (ret == 0)
-	{
-		exit(98);
-	}
-
-	size = size * num;
-	ptr = ret;
-	ptr[--size] = 0;
-	while (size--)
-		ptr[size] = '0';
-
-	return (ret);
-}
-
-/**
- * trimzero - moves pointer position to after last leading 0 in a string,
- * or last zero if all zeros
- *
- * @s: char * we want to move
- *
- * Return: new position
- */
-char *trimzero(char *s)
-{
-	while (*s == '0')
-		if (*(s + 1) != 0)
-			s++;
-		else
-			break;
-	return (s);
-}
-
-/**
- * main - multiply two  positive integer strings of arbitrary size
- *
- * @ac: number of arguments
- * @av: arugments
- *
- * Return: 0 if successful, 98 if failure
- */
-int main(int ac, char **av)
-{
-	long int len1, len2, lenres, i, j;
-	char *res;
-
-	if (ac != 3)
-	{
-		_print("Error\n");
-		return (98);
-	}
-	av[2] = trimzero(av[2]);
-	av[1] = trimzero(av[1]);
-	if (*av[1] == '0' || *av[2] == '0')
-	{
-		_print("0\n");
-		return (0);
-	}
-	len1 = numstrchk(av[1]);
-	len2 = numstrchk(av[2]);
-	lenres = len1 + len2;
-	res = _calloc_buffer(lenres + 1, sizeof(char));
-
-	for (i = lenres - 1, len1--; len1 >= 0; len1--, i += len2 - 1)
-		for (j = len2 - 1; j >= 0; j--, i--)
-		{
-			res[i] = (av[1][len1] * av[2][j] % 10) + res[i];
-			res[i - 1] = (av[1][len1] * av[2][j] / 10) + res[i - 1];
-			if (res[i] > '9')
+			if (argv[i][j] < '0' || argv[i][j] > '9')
 			{
-				res[i] -= 10;
-				res[i - 1]++;
+				printf("Error\n");
+				exit(98);
 			}
 		}
-
-	if (*res == '0')
-		_print(res + 1);
-	else
-		_print(res);
+	}
+	len = _str_len(argv[1]);
+	for (i = len - 1; argv[1][i]; i--)
+	{
+		cur = times(argv[2], argv[1][i], pad);
+		res = _add(res, cur);
+		pad++;
+	}
+	print_rev_str(res);
 	_putchar('\n');
 	free(res);
-
 	return (0);
+}
+
+void print_rev_str(char *str)
+{
+	int len, i;
+
+	len = _str_len(str);
+
+	for (i = len - 1; i >= 0; i--)
+		_putchar(str[i]);
+}
+
+/**
+ * _add-
+ * @res:
+ * @cur:
+ * Return:
+ */
+char *_add(char *res, char *cur)
+{
+	unsigned int temp, i, j = 0, len_c;
+	int flag = 0;
+	char *sum;
+
+	len_c = _str_len(cur);
+
+	if (!res)
+	{
+		res = malloc(len_c);
+		if (!res)
+		{
+			printf("Error\n");
+			exit(89);
+		}
+	}
+
+	sum = malloc(len_c +3);
+	for (i = 0; res[i] & cur[i]; i++)
+	{
+		temp = (res[i] - '0') + (cur[i] - '0') + flag;
+		flag = 0;
+
+		if (temp > 9)
+		{
+			temp -= 10;
+			flag++;
+		}
+
+		sum[j++] = temp + '0';
+	}
+	for (; cur[i]; i++)
+	{
+		temp = (cur[i] - '0') + flag;
+		flag = 0;
+
+		if (temp > 9)
+		{
+			temp -= 10;
+			flag++;
+		}
+
+		sum[j++] = temp + '0';
+	}
+	if(flag)
+	{
+		sum[j] = flag + '0';
+		sum[j + 1] = 0;
+	}
+	else
+	{
+		sum[j] = 0;
+	}
+
+	free(res);
+	free(cur);
+	return (sum);
+}
+
+/**
+ * _str_len - returs the length of the string "str"
+ * @str:
+ * Return:
+ */
+int _str_len(char *str)
+{
+	int i = 0, len = 0;
+	while (str[i++])
+		len++;
+	return (len);
+}
+/**
+ * times -
+ * @number:
+ * @digit:
+ * Return:
+ */
+char *times(char *num, char digit,int pad)
+{
+	int i, j = 0, len, n1, n2, flag = 0, ans = 0;
+	char *res;
+
+	n1 = digit - '0';
+	len = _str_len(num);
+	res = malloc(len + pad  + 3);
+
+	for (i = 0; i < pad; i++)
+		*(res + j++) = '0';
+
+	for (i = len - 1; num[i]; i--)
+	{
+		n2 = num[i] - '0';
+		ans = n1 * n2 + flag;
+		flag = 0;
+
+		if (ans > 9)
+		{
+			flag = ans / 10;
+		}
+		*(res + j++) = (ans % 10) + '0';
+	}
+	if (flag > 0)
+		*(res + j++) = flag + '0';
+	res[j] = '\0';
+
+	return (res);
 }
