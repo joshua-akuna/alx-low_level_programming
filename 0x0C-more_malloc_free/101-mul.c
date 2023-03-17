@@ -213,7 +213,7 @@ char *times(char *num, char digit, int pad)
  */
 char *zero_check(char *str)
 {
-	while(*str == '0')
+	while (*str == '0')
 		if (*(str + 1) != 0)
 			str++;
 		else
