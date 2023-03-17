@@ -7,6 +7,7 @@ char *times(char *num, char digit, int pad);
 char *_add(char *res, char *cur);
 void print_rev_str(char *str);
 void _print(char *str);
+char *zero_check(char *str);
 
 /**
  * main- multiplies two positive integers.
@@ -24,6 +25,15 @@ int main(int argc, char *argv[])
 	{
 		_print("Error");
 		exit(98);
+	}
+
+	argv[2] = zero_check(argv[2]);
+	argv[1] = zero_check(argv[1]);
+
+	if (*argv[2] == '0' || *argv[1] == '0')
+	{
+		_print("0\n");
+		return (0);
 	}
 
 	for (i = 1; i < argc; i++)
@@ -195,4 +205,19 @@ char *times(char *num, char digit, int pad)
 	res[j] = '\0';
 
 	return (res);
+}
+/**
+ * zero_checker: checks if a string is equivalent to zero.
+ * @str: a string argument.
+ * Return: pointer to the first non zero digit.
+ */
+char *zero_check(char *str)
+{
+	while(*str == '0')
+		if (*(str + 1) != 0)
+			str++;
+		else
+			break;
+	return (str);
+
 }
