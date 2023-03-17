@@ -207,7 +207,7 @@ char *times(char *num, char digit, int pad)
 	return (res);
 }
 /**
- * zero_checker: checks if a string is equivalent to zero.
+ * zero_check - checks if a string is equivalent to zero.
  * @str: a string argument.
  * Return: pointer to the first non zero digit.
  */
