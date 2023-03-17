@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	
+
 	argv[2] = zero_check(argv[2]);
 	argv[1] = zero_check(argv[1]);
 
