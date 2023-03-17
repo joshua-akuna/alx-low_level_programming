@@ -27,15 +27,6 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	argv[2] = zero_check(argv[2]);
-	argv[1] = zero_check(argv[1]);
-
-	if (*argv[2] == '0' || *argv[1] == '0')
-	{
-		_print("0\n");
-		return (0);
-	}
-
 	for (i = 1; i < argc; i++)
 	{
 		for (j = 0; argv[i][j]; j++)
@@ -47,6 +38,16 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+	
+	argv[2] = zero_check(argv[2]);
+	argv[1] = zero_check(argv[1]);
+
+	if (*argv[2] == '0' || *argv[1] == '0')
+	{
+		_print("0\n");
+		return (0);
+	}
+
 	len = _str_len(argv[1]);
 	for (i = len - 1; argv[1][i]; i--)
 	{
