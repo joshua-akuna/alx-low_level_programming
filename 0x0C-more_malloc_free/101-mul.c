@@ -6,11 +6,12 @@ int _str_len(char *str);
 char *times(char *num, char digit, int pad);
 char *_add(char *res, char *cur);
 void print_rev_str(char *str);
+
 /**
- * main - multiplies two positive integers.
+ * main- multiplies two positive integers.
  * @argc: number of input parameters.
  * @argv: an array of input parameters.
- * Result: 
+ * Return: return 0 if successful, else exit with status 89.
  */
 
 int main(int argc, char *argv[])
@@ -48,6 +49,10 @@ int main(int argc, char *argv[])
 	return (0);
 }
 
+/**
+ * print_rev_str - prints a pointer to a string argument in reverse.
+ * @str: pointer to a string srgument.
+ */
 void print_rev_str(char *str)
 {
 	int len, i;
@@ -59,10 +64,10 @@ void print_rev_str(char *str)
 }
 
 /**
- * _add-
- * @res:
- * @cur:
- * Return:
+ * _add- adds up 2 string pointer filled with digits.
+ * @res: a pointer to a string.
+ * @cur: a pointer to a string.
+ * Return: return the string which sums up both string arguments.
  */
 char *_add(char *res, char *cur)
 {
@@ -82,7 +87,8 @@ char *_add(char *res, char *cur)
 		}
 	}
 
-	sum = malloc(len_c +3);
+	sum = malloc(len_c + 3);
+
 	for (i = 0; res[i] & cur[i]; i++)
 	{
 		temp = (res[i] - '0') + (cur[i] - '0') + flag;
@@ -109,7 +115,7 @@ char *_add(char *res, char *cur)
 
 		sum[j++] = temp + '0';
 	}
-	if(flag)
+	if (flag)
 	{
 		sum[j] = flag + '0';
 		sum[j + 1] = 0;
@@ -126,23 +132,25 @@ char *_add(char *res, char *cur)
 
 /**
  * _str_len - returs the length of the string "str"
- * @str:
- * Return:
+ * @str: a pointer to a string.
+ * Return: an integer.
  */
 int _str_len(char *str)
 {
 	int i = 0, len = 0;
+
 	while (str[i++])
 		len++;
 	return (len);
 }
 /**
- * times -
- * @number:
- * @digit:
- * Return:
+ * times - return the product of number and a digit.
+ * @num: a pointer to a string of integers.
+ * @digit: a char with 1 digit.
+ * @pad: and int for the number of zero padding for the return value.
+ * Return: return the product of num and digit.
  */
-char *times(char *num, char digit,int pad)
+char *times(char *num, char digit, int pad)
 {
 	int i, j = 0, len, n1, n2, flag = 0, ans = 0;
 	char *res;
