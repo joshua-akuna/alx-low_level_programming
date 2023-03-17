@@ -9,12 +9,13 @@
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	void *new_blk;
-	unsigned int i, size;
+	void *new_blk = 0;
+	unsigned int i;
 	char *from, *to;
 
 	if (new_size == old_size)
 		return (ptr);
+
 	if (ptr == NULL)
 	{
 		ptr = malloc(new_size);
@@ -22,26 +23,25 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 			return (NULL);
 		return (ptr);
 	}
-	if (new_size <= 0)
+
+	if (new_size == 0 && ptr != NULL)
 	{
-		if (ptr != NULL)
-			free(ptr);
+		free(ptr);
 		return (NULL);
 	}
 
-	if (old_size > new_size)
-		size = new_size;
-	else
-		size = old_size;
-	new_blk = malloc(size);
+	new_blk = malloc(new_size);
+
 	if (!new_blk)
 		return (NULL);
 	from = ptr;
 	to = new_blk;
-	for (i = 0; i < size; i++)
+
+	for (i = 0; i < new_size && i < old_size; i++)
 	{
 		to[i] = from[i];
 	}
+
 	free(ptr);
 	return (new_blk);
 }
