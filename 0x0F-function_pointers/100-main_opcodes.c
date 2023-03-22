@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
 	for (i = 0; i < tot_bytes; i++)
 	{
-		if ( i && i < tot_bytes)
+		if (i && i < tot_bytes)
 			putchar(' ');
 		printf("%02x", *(f + i));
 
