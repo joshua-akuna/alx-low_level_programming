@@ -10,9 +10,7 @@
  */
 void print_int(va_list args)
 {
-	int num = va_arg(args, int);
-
-	printf("%d", num);
+	printf("%d", va_arg(args, int));
 }
 
 /**
@@ -22,9 +20,8 @@ void print_int(va_list args)
  */
 void print_char(va_list args)
 {
-	int c = va_arg(args, int);
 
-	printf("%c", c);
+	printf("%c", va_arg(args, int));
 }
 
 /**
@@ -34,9 +31,7 @@ void print_char(va_list args)
  */
 void print_double(va_list args)
 {
-	double num = va_arg(args, double);
-
-	printf("%f", num);
+	printf("%f", va_arg(args, double));
 }
 
 /**
@@ -48,12 +43,12 @@ void print_str(va_list args)
 {
 	char *str = va_arg(args, char *);
 
-	if (!str)
+	if (str)
 	{
-		printf("(nil)");
+		printf("%s", str);
 		return;
 	}
-	printf("%s", str);
+	printf("(nil)");
 }
 
 /**
@@ -97,7 +92,6 @@ void print_all(const char * const format, ...)
 		}
 		i++;
 	}
-	putchar('\n');
-
 	va_end(args);
+	putchar('\n');
 }
