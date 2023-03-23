@@ -70,9 +70,6 @@ void print_all(const char * const format, ...)
 		{'\0', NULL}
 	};
 
-	if (!format)
-		return;
-
 	va_start(args, format);
 	sep = "";
 
