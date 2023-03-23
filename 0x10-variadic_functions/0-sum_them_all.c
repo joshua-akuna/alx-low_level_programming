@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 /**
- * sum_all_all - sum up all the arguments of the variable arguments.
+ * sum_them_all - sum up all the arguments of the variable arguments.
  * @n: the number of variable arguments.
  * @...: variable arguments.
  *
