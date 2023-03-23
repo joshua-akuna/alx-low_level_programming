@@ -74,7 +74,7 @@ void print_all(const char * const format, ...)
 	i = 0;
 
 	va_start(args, format);
-	while (format != NULL || format[i])
+	while (format != NULL && format[i])
 	{
 		j = 0;
 		while (fmts[j].val)
