@@ -10,7 +10,7 @@
  */
 void print_int(va_list args)
 {
-	printf("%d", va_arg(args, int));
+	printf("%i", va_arg(args, int));
 }
 
 /**
@@ -43,12 +43,12 @@ void print_str(va_list args)
 {
 	char *str = va_arg(args, char *);
 
-	if (str)
+	if (str == NULL)
 	{
-		printf("%s", str);
+		printf("%s", "(nil)");
 		return;
 	}
-	printf("(nil)");
+	printf("%s", str);
 }
 
 /**
@@ -67,7 +67,7 @@ void print_all(const char * const format, ...)
 		{'i', print_int},
 		{'f', print_double},
 		{'s', print_str},
-		{'\0', NULL}
+		{'\0', NULL},
 	};
 
 	va_start(args, format);
