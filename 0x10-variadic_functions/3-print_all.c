@@ -88,8 +88,6 @@ void print_all(const char * const format, ...)
 		{
 			if (format[i] == fmts[j].val)
 			{
-				if (i && i < len)
-					printf(", ");
 				fmts[j].f(args);
 				break;
 			}
