@@ -50,7 +50,7 @@ void print_str(va_list args)
 
 	if (!str)
 	{
-		printf("nil");
+		printf("(nil)");
 		return;
 	}
 	printf("%s", str);
@@ -65,7 +65,8 @@ void print_str(va_list args)
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	int i, j, len;
+	int i, j;
+	char *sep;
 	fmt fmts[] = {
 		{'c', print_char},
 		{'i', print_int},
@@ -78,7 +79,7 @@ void print_all(const char * const format, ...)
 		return;
 
 	va_start(args, format);
-	len = strlen(format);
+	sep = "";
 
 	i = 0;
 	while (format[i])
@@ -88,8 +89,9 @@ void print_all(const char * const format, ...)
 		{
 			if (format[i] == fmts[j].val)
 			{
+				printf("%s", sep);
 				fmts[j].f(args);
-				break;
+				sep = ", ";
 			}
 			j++;
 		}
