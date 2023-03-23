@@ -70,11 +70,11 @@ void print_all(const char * const format, ...)
 		{'\0', NULL},
 	};
 
-	va_start(args, format);
 	sep = "";
-
 	i = 0;
-	while (format[i])
+
+	va_start(args, format);
+	while (format != NULL || format[i])
 	{
 		j = 0;
 		while (fmts[j].val)
@@ -90,5 +90,6 @@ void print_all(const char * const format, ...)
 		i++;
 	}
 	va_end(args);
+
 	putchar('\n');
 }
