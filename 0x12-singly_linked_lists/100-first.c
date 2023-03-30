@@ -7,6 +7,7 @@
  */
 void before_main(void)
 {
-	printf("You're beat! and yet, you must allow,\nI \
-bore my house upon my back!\n");
+	char *str = "You're beat! and yet, you must allow\n";
+
+	printf("%sI bore my house upon my back!\n", str);
 }
