@@ -4,7 +4,7 @@
  * singly linked list.
  * @head: a double pointer to the first node of
  * the linked list.
- * @char: a string
+ * @str: a string
  * Return: a pointer to the first node of the linked list.
  */
 list_t *add_node(list_t **head, const char *str)
