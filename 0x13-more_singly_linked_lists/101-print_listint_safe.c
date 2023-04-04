@@ -14,8 +14,6 @@ size_t print_listint_safe(const listint_t *head)
 	listint_t *loop_start_node = NULL;
 	int loop_count = 0;
 
-	if (head == NULL)
-		exit(98);
 	cur_node = (listint_t *)head;
 	loop_start_node = find_loop_start_node(cur_node);
 
