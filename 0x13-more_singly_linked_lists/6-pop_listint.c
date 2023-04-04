@@ -14,7 +14,7 @@ int pop_listint(listint_t **head)
 	int value = 0;
 	listint_t *popped_node = NULL;
 	/* returns NULL if the pointer to the list is NULL */
-	if (!head)
+	if (head == NULL || *head == NULL)
 		return (0);
 	/*
 	 * assign the pointer of the current head to the pointer of the
