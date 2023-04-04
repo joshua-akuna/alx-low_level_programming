@@ -8,41 +8,40 @@
  */
 int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
-	listint_t *node_at_index;
-	listint_t *node_before_index;
-	unsigned int i;
+	listint_t *prev_node;
+	listint_t *node;
+	unsigned int i = 0;
 
 	if (!head || !(*head))
 		return (-1);
 
 	if (index == 0)
 	{
-		node_at_index = *head;
+		node = *head;
 		*head = (*head)->next;
 	}
 	else
 	{
-		node_before_index = *head;
-		while (node_before_index && i < index - 1)
+		prev_node = *head;
+		while (prev_node && i < index - 1)
 		{
 			i++;
-			node_before_index = node_before_index->next;
+			prev_node = prev_node->next;
 		}
-		node_at_index = node_before_index->next;
 
 		/* checks if the nodes of interest are valid */
-		if (node_before_index == NULL || node_at_index == NULL)
+		if (prev_node == NULL || prev_node->next == NULL)
 			return (-1);
 
 		/*
 		 * assign the node next to the one to be deleted as
 		 * the next to the node before the one to be deleted.
 		 */
-		node_before_index->next = node_at_index->next;
+		node = prev_node->next;
+		prev_node->next = prev_node->next->next;
 	}
 	/* delete the node at index index */
-	free(node_at_index);
-	node_at_index = NULL;
+	free(node);
 
 	return (1);
 }
