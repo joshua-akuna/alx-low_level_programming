@@ -26,7 +26,8 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 
 	if (idx == 0)
 	{
-		new_node->next = prev_node;
+		new_node->next = *head;
+		*head = new_node;
 		return (new_node);
 	}
 	/* finds the node at idx - 1 */
@@ -39,11 +40,6 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 	/* checks if the node before the node at position idx is valid */
 	if (prev_node == NULL)
 		return (NULL);
-	if (prev_node->next == NULL)
-	{
-		prev_node->next = new_node;
-		return (new_node);
-	}
 	/* assign the next node to prev_node as the next to the new_node.*/
 	new_node->next = prev_node->next;
 	/* assign the new_node as next to the current_node */
