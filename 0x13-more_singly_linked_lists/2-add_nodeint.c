@@ -10,6 +10,9 @@ listint_t *add_nodeint(listint_t **head, const int n)
 	/* create and initialize a pointer to a listint_t structure */
 	listint_t *new_node = NULL;
 
+	if (head == NULL)
+		return (NULL);
+
 	new_node = malloc(sizeof(listint_t));
 	/* returns NULL if malloc fails */
 	if (new_node == NULL)
