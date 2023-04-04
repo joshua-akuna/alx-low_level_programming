@@ -1,1 +1,1 @@
-A description of the task in  ALXSE alx-low_level_programming repository.
+A description of the ALXSE alx-loe_level_programming repository.
