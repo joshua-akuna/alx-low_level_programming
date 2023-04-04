@@ -10,13 +10,12 @@
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
 	listint_t *new_node = NULL;
-	listint_t *current_node = NULL;
+	listint_t *prev_node = NULL;
 	unsigned int index = 0;
 
 	if (head == NULL)
 		return (NULL);
 
-	current_node = *head;
 	/* creates a new node */
 	new_node = malloc(sizeof(listint_t));
 	/* returns NULL if malloc fails */
@@ -27,26 +26,27 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 
 	if (idx == 0)
 	{
-		new_node->next = current_node;
+		new_node->next = prev_node;
 		return (new_node);
 	}
-
 	/* finds the node at idx - 1 */
-	while (current_node != NULL && index < idx - 1)
+	prev_node = *head;
+	while (prev_node != NULL && index < idx - 1)
 	{
 		index++;
-		current_node = current_node->next;
+		prev_node = prev_node->next;
 	}
-
 	/* checks if the node before the node at position idx is valid */
-	if (current_node == NULL)
+	if (prev_node == NULL)
 		return (NULL);
-
-	/* assign the next node to current_node as the next to the new_node */
-	new_node->next = current_node->next;
-
+	if (prev_node->next == NULL)
+	{
+		prev_node->next = new_node;
+		return (new_node);
+	}
+	/* assign the next node to prev_node as the next to the new_node.*/
+	new_node->next = prev_node->next;
 	/* assign the new_node as next to the current_node */
-	current_node->next = new_node;
-
+	prev_node->next = new_node;
 	return (new_node);
 }
