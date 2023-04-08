@@ -6,7 +6,8 @@
  */
 void print_binary(unsigned long int n)
 {
-	if (n > 1)
-		print_binary(n >> 1);
-	printf("%li", n & 1);
+	unsigned long int num = n;
+	if (num >= 2)
+		print_binary(num >> 1);
+	putchar((num & 1) + '0');
 }
