@@ -1,0 +1,1 @@
+This is a description of the ALXSE project 0x14_bit_manipulation
