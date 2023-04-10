@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	if (bytes_read == -1)
 		print_error(argv[1], 1, 98);
 
-	if (close_fd(file_from_desc) || close_fd(file_to_desc))
+	if (close_fd(file_to_desc) || close_fd(file_from_desc))
 		exit(100);
 
 	return (0);
