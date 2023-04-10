@@ -22,7 +22,7 @@ void print_title(char *title);
 int main(int argc, char **argv)
 {
 	int file_des, bytes_read;
-	int buffer[32];
+	char buffer[32];
 
 	if (argc != 2)
 	{
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	file_des = open(av[1], O_RDONLY);
+	file_des = open(argv[1], O_RDONLY);
 	if (file_des == -1)
 		return (1);
 
