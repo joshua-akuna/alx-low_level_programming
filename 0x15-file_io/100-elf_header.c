@@ -15,7 +15,62 @@ void print_abi(unsigned char *e_ident);
 void print_osabi(unsigned char *e_ident);
 void print_type(unsigned int e_type, unsigned char *e_ident);
 void print_entry(unsigned long int e_entry, unsigned char *e_ident);
-void close_elf(int elf);
+void close_file_desc(int file_desc);
+void validate_elf(unsigned char *e_ident);
+
+/**
+ * main - Displays the information contained in the
+ *        ELF header at the start of an ELF file.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: 0 on success.
+ *
+ * Description: If the file is not an ELF File or
+ *              the function fails - exit code 98.
+ */
+int main(int __attribute__((__unused__)) argc, char *argv[])
+{
+	Elf64_Ehdr *header;
+	int file_desc, bytes_read;
+
+	file_desc = open(argv[1], O_RDONLY);
+	if (file_desc == -1)
+	{
+		dprintf(2, "Error: Can't read file %s\n", argv[1]);
+		exit(98);
+	}
+	header = malloc(sizeof(Elf64_Ehdr));
+	if (header == NULL)
+	{
+		close_file_desc(file_desc);
+		dprintf(2, "Error: malloc failed\n");
+		exit(98);
+	}
+	bytes_read = read(file_desc, header, sizeof(Elf64_Ehdr));
+	if (bytes_read == -1)
+	{
+		close_file_desc(file_desc);
+		free(header);
+		dprintf(STDERR_FILENO, "Error: Can't read file\n");
+		exit(98);
+	}
+
+	validate_elf(header->e_ident);
+	printf("ELF Header:\n");
+	print_magic(header->e_ident);
+	print_class(header->e_ident);
+	print_data(header->e_ident);
+	print_version(header->e_ident);
+	print_osabi(header->e_ident);
+	print_abi(header->e_ident);
+	print_type(header->e_type, header->e_ident);
+	print_entry(header->e_entry, header->e_ident);
+
+	free(header);
+	close_file_desc(file_desc);
+	return (0);
+}
 
 /**
  * check_elf - Checks if a file is an ELF file.
@@ -23,18 +78,16 @@ void close_elf(int elf);
  *
  * Description: If the file is not an ELF file - exit code 98.
  */
-void check_elf(unsigned char *e_ident)
+void validate_elf(unsigned char *e_ident)
 {
-	int index;
+	int i;
 
-	for (index = 0; index < 4; index++)
+	for (i = 0; i < 4; i++)
 	{
-		if (e_ident[index] != 127 &&
-		    e_ident[index] != 'E' &&
-		    e_ident[index] != 'L' &&
-		    e_ident[index] != 'F')
+		if (e_ident[i] != 127 && e_ident[i] != 'E'
+				&& e_ident[i] != 'L' && e_ident[i] != 'F')
 		{
-			dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
+			dprintf(2, "Error: Not a valid ELF file\n");
 			exit(98);
 		}
 	}
@@ -249,66 +302,12 @@ void print_entry(unsigned long int e_entry, unsigned char *e_ident)
  *
  * Description: If the file cannot be closed - exit code 98.
  */
-void close_elf(int elf)
+void close_file_desc(int file_desc)
 {
-	if (close(elf) == -1)
+	if (close(file_desc))
 	{
-		dprintf(STDERR_FILENO,
-			"Error: Can't close fd %d\n", elf);
+		dprintf(2, "Error: Can't close fd %d\n", file_desc);
 		exit(98);
 	}
 }
 
-/**
- * main - Displays the information contained in the
- *        ELF header at the start of an ELF file.
- * @argc: The number of arguments supplied to the program.
- * @argv: An array of pointers to the arguments.
- *
- * Return: 0 on success.
- *
- * Description: If the file is not an ELF File or
- *              the function fails - exit code 98.
- */
-int main(int __attribute__((__unused__)) argc, char *argv[])
-{
-	Elf64_Ehdr *header;
-	int o, r;
-
-	o = open(argv[1], O_RDONLY);
-	if (o == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
-		exit(98);
-	}
-	header = malloc(sizeof(Elf64_Ehdr));
-	if (header == NULL)
-	{
-		close_elf(o);
-		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
-		exit(98);
-	}
-	r = read(o, header, sizeof(Elf64_Ehdr));
-	if (r == -1)
-	{
-		free(header);
-		close_elf(o);
-		dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
-		exit(98);
-	}
-
-	check_elf(header->e_ident);
-	printf("ELF Header:\n");
-	print_magic(header->e_ident);
-	print_class(header->e_ident);
-	print_data(header->e_ident);
-	print_version(header->e_ident);
-	print_osabi(header->e_ident);
-	print_abi(header->e_ident);
-	print_type(header->e_type, header->e_ident);
-	print_entry(header->e_entry, header->e_ident);
-
-	free(header);
-	close_elf(o);
-	return (0);
-}
