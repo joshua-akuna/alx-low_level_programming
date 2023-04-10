@@ -77,9 +77,9 @@ void print_magic_info(char *elf_header)
 {
 	int index = 0;
 
-	printf("  Magic   ");
+	printf("  Magic:  ");
 	while (index < 16)
-		printf("%02x ", (unsigned int) elf_header[index++]);
+		printf("%02x ", elf_header[index++]);
 	printf("\n");
 }
 
