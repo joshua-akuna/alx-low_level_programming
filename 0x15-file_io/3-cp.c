@@ -32,14 +32,16 @@ int main(int argc, char **argv)
 		print_error(argv[2], 2, 99);
 	}
 
-	while ((bytes_read = read(file_from_desc, buffer, 1024)) > 0)
+	do
 	{
+		bytes_read = read(file_from_desc, buffer, 1024);
+		
+		if (bytes_read == -1)
+			print_error(argv[1], 1, 98);
 		if (write(file_to_desc, buffer, bytes_read) != bytes_read)
 			print_error(argv[2], 2, 99);
-	}
+	} while (bytes_read == 1024);
 
-	if (bytes_read == -1)
-		print_error(argv[1], 1, 98);
 
 	if (close_fd(file_to_desc) || close_fd(file_from_desc))
 		exit(100);
