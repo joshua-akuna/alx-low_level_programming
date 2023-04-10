@@ -82,7 +82,7 @@ void print_class_info(char *elf_header)
 	print_title("Class:");
 	if (elf_header[4] == 1)
 		printf("ELF32\n");
-	else if (elf_header == 2)
+	else if (elf_header[4] == 2)
 		printf("ELF64\n");
 	else
 		printf("<unknown: %02hx>", elf_header[4]);
@@ -140,7 +140,7 @@ void print_osabi_info(char *elf_header)
 	osabi_info = get_osabi_info(elf_header);
 
 	if (osabi_info != NULL)
-		prinf("%s\n", osabi_info);
+		printf("%s\n", osabi_info);
 	else
 		printf("<unknown: %02x>\n", elf_header[7]);
 	printf("  %-35s%d\n", "ABI Version:", elf_header[8]);
@@ -227,7 +227,7 @@ void print_type_info(char *elf_header)
  * elf header file.
  * @elf_header: the elf header information.
  */
-print_entry_info(char *elf_header)
+void print_entry_info(char *elf_header)
 {
 	int index, tag;
 
