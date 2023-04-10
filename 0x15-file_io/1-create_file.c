@@ -14,8 +14,7 @@ int create_file(const char *filename, char *text_content)
 	if (filename == NULL)
 		return (-1);
 
-
-	file_desc = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0640);
+	file_desc = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0600);
 	if (file_desc == -1)
 		return (-1);
 
@@ -26,9 +25,7 @@ int create_file(const char *filename, char *text_content)
 		bytes_out = write(file_desc, text_content, len);
 	}
 
-	if (bytes_out != len)
+	if (bytes_out != len || close(file_desc))
 		return (-1);
-	close(file_desc);
-
 	return (1);
 }
