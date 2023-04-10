@@ -150,6 +150,7 @@ void print_osabi_info(char *elf_header)
  * @elf_header: a elf header file.
  */
 char *get_osabi_info(char *elf_header)
+{
 	switch (elf_header[7])
 	{
 		case 0:
