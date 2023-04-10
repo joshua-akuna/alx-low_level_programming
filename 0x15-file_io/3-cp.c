@@ -1,7 +1,7 @@
 #include "main.h"
 
 int close_fd(int file_desc);
-void print_error(char *name, int action, int exit_code);
+void print_error(char *arg, int action, int code);
 /**
  * main - copies the content of a file to another.
  * @argc: number of arguments passed to main.
@@ -27,9 +27,9 @@ int main(int argc, char **argv)
 	file_from_desc = open(argv[1], O_RDONLY);
 	file_to_desc = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (file_from_desc == -1)
-		print_error(argv[1], 1, 98);
+		print_error(argv[1], 0, 98);
 	if (file_to_desc == -1)
-		print_error(argv[2], 2, 99);
+		print_error(argv[2], 1, 99);
 
 	do {
 		bytes_read = read(file_from_desc, buffer, 1024);
@@ -68,15 +68,16 @@ int close_fd(int file_desc)
  * @exit_code: code to exit with.
  * Return: nothing.
  */
-void print_error(char *name, int action, int exit_code)
+void print_error(char *arg, int action, int code)
 {
-	char *format;
-
-	format = action == 0 ? "Usage: %s file_from file_to\n"
-		: action == 1 ? "Error: Can't read from file %s\n"
-		: action == 2 ? "Error: Can't write to %s\n"
-		: "Error Unknown: %s\n";
-
-	dprintf(2, format, name);
-	exit(exit_code);
+	if (action == 0)
+	{
+		dprintf(2, "Error: Can't read from file %s\n", arg);
+		exit(code);
+	}
+	else if (action == 1)
+	{
+		dprintf(2, "Error: Can't write to %s\n", arg);
+		exit(code);
+	}
 }
