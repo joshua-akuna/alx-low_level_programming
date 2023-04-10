@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 {
 	int file_from_desc = -1, file_to_desc = -1;
 	int buffer[1024];
-	int bytes_read = -1, bytes_out = -1;
+	int bytes_read = -1;
 
 	if (argc != 3)
 		print_error("cp", 0, 97);
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	if (file_from_desc == -1)
 		print_error(argv[1], 1, 98);
 
-	file_to_desc = open(argv[2], O_WRONLY | O_TRUNC | O_CREAT, 0664);
+	file_to_desc = open(argv[2],O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (file_to_desc == -1)
 	{
 		close_fd(file_from_desc);
@@ -34,19 +34,19 @@ int main(int argc, char **argv)
 
 	while ((bytes_read = read(file_from_desc, buffer, 1024)) != 0)
 	{
-		if (bytes_read == -1)
-		{
-			close_fd(file_to_desc);
-			close_fd(file_from_desc);
-			print_error(argv[1], 1, 98);
-		}
-		bytes_out = write(file_to_desc, buffer, bytes_read);
-		if (bytes_out != bytes_read)
+		if (write(file_to_desc, buffer, bytes_read) != bytes_read)
 		{
 			close_fd(file_to_desc);
 			close_fd(file_from_desc);
 			print_error(argv[2], 2, 99);
 		}
+	}
+	
+	if (bytes_read == -1)
+	{
+		close_fd(file_to_desc);
+		close_fd(file_from_desc);
+		print_error(argv[1], 1, 98);
 	}
 
 	if (close_fd(file_to_desc) || close_fd(file_from_desc))
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 /**
  * close_fd - closes a file descriptor.
  * @file_desc: file descriptor to close.
- * Return: nothing.
+ * Return: 0 if file descriptors closed successfully, else 1.
  */
 int close_fd(int file_desc)
 {
