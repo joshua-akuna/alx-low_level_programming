@@ -1,4 +1,13 @@
 #include "main.h"
+void print_magic_info(char *elf_header);
+void print_class_info(char *elf_header);
+void print_data_info(char *elf_header);
+void print_version_info(char *elf_header);
+void print_osabi_info(char *elf_header);
+char get_osabi_info(char *elf_header);
+int print_type_info(char *elf_header);
+void print_entry_info(char *elf_header);
+void print_title(char *title);
 /**
  * main - displays the information contained it the ELF header
  * at the start of the ELF file.
@@ -101,7 +110,7 @@ void print_data_info(char *elf_header)
  * elf header file.
  * @elf_header: the elf header information.
  */
-print_version_info(char *elf_header)
+void print_version_info(char *elf_header)
 {
 	print_title("Version:");
 	if (elf_header[6] > EV_CURRENT)
@@ -121,7 +130,7 @@ print_version_info(char *elf_header)
  * elf header file.
  * @elf_header: the elf header information.
  */
-print_osabi_info(char *elf_header)
+void print_osabi_info(char *elf_header)
 {
 	char *osabi_info;
 
@@ -140,7 +149,7 @@ print_osabi_info(char *elf_header)
  * get_osabi_info - returns the correct osabi stirng.
  * @elf_header: a elf header file.
  */
-get_osabi_info(char *elf_header)
+char *get_osabi_info(char *elf_header)
 	switch (elf_header[7])
 	{
 		case 0:
