@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	int bytes_read = -1;
 
 	if (argc != 3)
-		print_error(argv[0], 0, 97);
+		print_error("cp", 0, 97);
 
 	file_from_desc = open(argv[1], O_RDONLY);
 	if (file_from_desc == -1)
@@ -27,7 +27,10 @@ int main(int argc, char **argv)
 
 	file_to_desc = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (file_to_desc == -1)
+	{
+		close_fd(file_from_desc);
 		print_error(argv[2], 2, 99);
+	}
 
 	while ((bytes_read = read(file_from_desc, buffer, 1024)) > 0)
 	{
