@@ -28,7 +28,7 @@ void print_title(char *title);
 int main(int argc, char **argv)
 {
 	int file_des, bytes_read;
-	char buffer[32];
+	char buffer[27];
 
 	if (argc != 2)
 	{
@@ -42,16 +42,16 @@ int main(int argc, char **argv)
 		dprintf(2, "Error: Can't open file\n");
 		exit(98);
 	}
-	bytes_read = read(file_des, buffer, 32);
-	if (bytes_read == -1 || bytes_read < 28)
+	bytes_read = read(file_des, buffer, 27);
+	if (bytes_read == -1)
 	{
 		dprintf(2, "Error: Can't read file\n");
 		exit(98);
 	}
-	if (buffer[0] != 0x7f || buffer[1] != 'E' || buffer[2] != 'L'
-			|| buffer[3] != 'F')
+	if ((int)buffer[0] != 127 || buffer[1] != 'E'
+			|| buffer[2] != 'L' || buffer[3] != 'F')
 	{
-		dprintf(2, "readelf: Error: failed to read elf file header");
+		dprintf(2, "Error: Not an elf file");
 		return (98);
 	}
 
