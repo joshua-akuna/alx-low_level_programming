@@ -9,7 +9,7 @@
 int append_text_to_file(const char *filename, char *text_content)
 {
 	int file_desc;
-	int len;
+	int len = 0, bytes_out = 0;
 
 	if (filename == NULL)
 		return (-1);
@@ -22,10 +22,10 @@ int append_text_to_file(const char *filename, char *text_content)
 	{
 		while (text_content[len])
 			len++;
-		write(file_desc, text_content, len);
+		bytes_out = write(file_desc, text_content, len);
 	}
 
-	close(file_desc);
-
+	if (bytes_out != len || close(file_desc))
+		return (-1);
 	return (1);
 }
