@@ -70,7 +70,7 @@ void print_error(char *name, int action, int exit_code)
 	char *format;
 
 	format = action == 0 ? "Usage: %s file_from file_to\n"
-		: action == 1 ? "Error: Can't read from %s\n"
+		: action == 1 ? "Error: Can't read from file %s\n"
 		: action == 2 ? "Error: Can't write to %s\n"
 		: "Error Unknown: %s\n";
 
