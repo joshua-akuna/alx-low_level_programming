@@ -27,15 +27,26 @@ int main(int argc, char **argv)
 
 	file_to_desc = open(argv[2], O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	if (file_to_desc == -1)
+	{
+		close_fd(file_from_desc);
 		print_error(argv[2], 2, 99);
+	}
 
 	while ((bytes_read = read(file_from_desc, buffer, 1024)) != 0)
 	{
 		if (bytes_read == -1)
+		{
+			close_fd(file_to_desc);
+			close_fd(file_from_desc);
 			print_error(argv[1], 1, 98);
+		}
 		bytes_out = write(file_to_desc, buffer, bytes_read);
 		if (bytes_out != bytes_read)
+		{
+			close_fd(file_to_desc);
+			close_fd(file_from_desc);
 			print_error(argv[2], 2, 99);
+		}
 	}
 
 	close_fd(file_to_desc);
