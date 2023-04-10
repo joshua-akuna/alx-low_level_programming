@@ -248,7 +248,6 @@ void print_entry_info(char *elf_header)
 		printf("%x", elf_header[index--]);
 		while (index >= 0x18)
 			printf("%02x", (unsigned char) elf_header[index--]);
-		printf("\n");
 	}
 	else
 	{
@@ -258,8 +257,8 @@ void print_entry_info(char *elf_header)
 		printf("%x", elf_header[index++]);
 		while (index <= tag)
 			printf("%02x", (unsigned char) elf_header[index++]);
-		printf("\n");
 	}
+	printf("\n");
 }
 
 /**
