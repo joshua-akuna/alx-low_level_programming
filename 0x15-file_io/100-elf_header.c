@@ -10,8 +10,8 @@ void print_class_info(unsigned char *e_ident);
 void print_data_info(unsigned char *e_ident);
 void print_version_info(unsigned char *e_ident);
 void print_magic_info(unsigned char *e_ident);
-void print_abi(unsigned char *e_ident);
-void print_osabi(unsigned char *e_ident);
+void print_abi_version_info(unsigned char *e_ident);
+void print_osabi_info(unsigned char *e_ident);
 void print_type(unsigned int e_type, unsigned char *e_ident);
 void print_entry(unsigned long int e_entry, unsigned char *e_ident);
 void close_file_desc(int file_desc);
@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
 	print_class_info(header->e_ident);
 	print_data_info(header->e_ident);
 	print_version_info(header->e_ident);
-	print_osabi(header->e_ident);
-	print_abi(header->e_ident);
+	print_osabi_info(header->e_ident);
+	print_abi_version_info(header->e_ident);
 	print_type(header->e_type, header->e_ident);
 	print_entry(header->e_entry, header->e_ident);
 
@@ -180,55 +180,59 @@ void print_version_info(unsigned char *e_ident)
 }
 
 /**
- * print_osabi - Prints the OS/ABI of an ELF header.
- * @e_ident: A pointer to an array containing the ELF version.
+ * print_osabi - prints the detais of the OS/ABI information
+ * of the ELF file header.
+ * @e_ident: an array that contains information about
+ * the OS/ABI of the ELF file header.
  */
-void print_osabi(unsigned char *e_ident)
+void print_osabi_info(unsigned char *e_ident)
 {
 	printf("  OS/ABI:                            ");
 
 	switch (e_ident[EI_OSABI])
 	{
-	case ELFOSABI_NONE:
-		printf("UNIX - System V\n");
-		break;
-	case ELFOSABI_HPUX:
-		printf("UNIX - HP-UX\n");
-		break;
-	case ELFOSABI_NETBSD:
-		printf("UNIX - NetBSD\n");
-		break;
-	case ELFOSABI_LINUX:
-		printf("UNIX - Linux\n");
-		break;
-	case ELFOSABI_SOLARIS:
-		printf("UNIX - Solaris\n");
-		break;
-	case ELFOSABI_IRIX:
-		printf("UNIX - IRIX\n");
-		break;
-	case ELFOSABI_FREEBSD:
-		printf("UNIX - FreeBSD\n");
-		break;
-	case ELFOSABI_TRU64:
-		printf("UNIX - TRU64\n");
-		break;
-	case ELFOSABI_ARM:
-		printf("ARM\n");
-		break;
-	case ELFOSABI_STANDALONE:
-		printf("Standalone App\n");
-		break;
-	default:
-		printf("<unknown: %x>\n", e_ident[EI_OSABI]);
+		case ELFOSABI_NONE:
+			printf("UNIX - System V\n");
+			break;
+		case ELFOSABI_HPUX:
+			printf("UNIX - HP-UX\n");
+			break;
+		case ELFOSABI_NETBSD:
+			printf("UNIX - NetBSD\n");
+			break;
+		case ELFOSABI_IRIX:
+			printf("UNIX - IRIX\n");
+			break;
+		case ELFOSABI_FREEBSD:
+			printf("UNIX - FreeBSD\n");
+			break;
+		case ELFOSABI_TRU64:
+			printf("UNIX - TRU64\n");
+			break;
+		case ELFOSABI_SOLARIS:
+			printf("UNIX - Solaris\n");
+			break;
+		case ELFOSABI_ARM:
+			printf("ARM\n");
+			break;
+		case ELFOSABI_STANDALONE:
+			printf("Standalone App\n");
+			break;
+		case ELFOSABI_LINUX:
+			printf("UNIX - Linux\n");
+			break;
+		default:
+			printf("<unknown: %x>\n", e_ident[EI_OSABI]);
 	}
 }
 
 /**
- * print_abi - Prints the ABI version of an ELF header.
- * @e_ident: A pointer to an array containing the ELF ABI version.
+ * print_abi_version_info - prints details of the ABI version
+ * of the ELF file header argument.
+ * @e_ident: an array that stores information of the ELF file
+ * ABI version.
  */
-void print_abi(unsigned char *e_ident)
+void print_abi_version_info(unsigned char *e_ident)
 {
 	printf("  ABI Version:                       %d\n",
 	       e_ident[EI_ABIVERSION]);
