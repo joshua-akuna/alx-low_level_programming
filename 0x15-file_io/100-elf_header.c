@@ -28,7 +28,7 @@ void print_title(char *title);
 int main(int argc, char **argv)
 {
 	int file_des, bytes_read;
-	char buffer[27];
+	Elf32_Ehdr buffer;
 
 	if (argc != 2)
 	{
@@ -42,17 +42,16 @@ int main(int argc, char **argv)
 		dprintf(2, "Error: Can't open file\n");
 		exit(98);
 	}
-	bytes_read = read(file_des, buffer, 27);
-	if (bytes_read == -1)
+	bytes_read = read(file_des, &buffer, sizeof(buffer));
+	if (bytes_read != sizeof(buffer))
 	{
 		dprintf(2, "Error: Can't read file\n");
 		exit(98);
 	}
-	if ((int)buffer[0] != 127 || buffer[1] != 'E'
-			|| buffer[2] != 'L' || buffer[3] != 'F')
+	if (is_invalid_elf(&buffer))
 	{
 		dprintf(2, "Error: Not an elf file");
-		return (98);
+		exit (98);
 	}
 
 	printf("ELF Header:\n");
@@ -65,6 +64,14 @@ int main(int argc, char **argv)
 	print_entry_info(buffer);
 
 	close(file_des);
+	return (0);
+}
+
+void is_invalid_elf(Elf64_Ehdr *buffer)
+{
+	if (buffer.e_ident[EI_MAG0] != ELFMAG0 || buffer.e_ident[EI_MAG1] != ELFMAG1
+			|| buffer.e_ident[EI_MAG2] != ELFMAG2 || buffer.e_ident[EI_MAG3] != ELFMAG3)
+		return (1);
 	return (0);
 }
 
@@ -242,27 +249,39 @@ void print_type_info(char *elf_header)
 void print_entry_info(char *elf_header)
 {
 	int index, tag;
+	char i;
 
 	print_title("Entry point address:");
-	tag = elf_header[4] == 2 ? 0x1f : 0x1b;
+	i = elf_header[4] + '0';
 
-	if (elf_header[5] == 1)
+	if (i == '1')
 	{
+		tag = 26;
+		printf("80");
 		index = tag;
-		while (elf_header[index] == 0 && index > 0x18)
+		while (index >= 22)
+		{
+			if (elf_header[index] > 0)
+				printf("%x", elf_header[index]);
+			else if (elf_header[index] < 0)
+				printf("%x", 256 + elf_header[index]);
 			index--;
-		printf("%x", elf_header[index--]);
-		while (index >= 0x18)
-			printf("%02x", (unsigned char) elf_header[index--]);
+		}
+		if (elf_header[7] == 6)
+			printf("00");
 	}
-	else
+	else if (i == '2')
 	{
-		index = 0x18;
-		while (elf_header[index] == 0)
-			index++;
-		printf("%x", elf_header[index++]);
-		while (index <= tag)
-			printf("%02x", (unsigned char) elf_header[index++]);
+		tag = 26;
+		index = tag;
+		while (elf_header[index] > 23)
+		{
+			if (elf_header[index] >= 0)
+				printf("%02x", elf_header[index]);
+			else if (elf_header[index] < 0)
+				printf("%02x", elf_header[index] + 256);
+			index--;
+		}
 	}
 	printf("\n");
 }
