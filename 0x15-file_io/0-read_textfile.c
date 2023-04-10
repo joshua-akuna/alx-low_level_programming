@@ -9,15 +9,18 @@
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int file_desc;
-	int buffer[2048];
+	int buffer[1024];
 	size_t bytes_read = 0;
 
-	(void) letters;
+	if (filename == NULL || letters == 0)
+		return (0);
 
 	file_desc = open(filename, O_RDONLY);
 	if (file_desc == -1)
-		return (-1);
+		return (0);
 	bytes_read = read(file_desc, buffer, letters);
+	if (bytes_read == 0)
+		return (0);
 
 	close(file_desc);
 	buffer[bytes_read] = '\0';
