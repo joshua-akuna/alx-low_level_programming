@@ -4,8 +4,8 @@ void print_class_info(char *elf_header);
 void print_data_info(char *elf_header);
 void print_version_info(char *elf_header);
 void print_osabi_info(char *elf_header);
-char get_osabi_info(char *elf_header);
-int print_type_info(char *elf_header);
+char *get_osabi_info(char *elf_header);
+void print_type_info(char *elf_header);
 void print_entry_info(char *elf_header);
 void print_title(char *title);
 /**
@@ -196,7 +196,7 @@ char *get_osabi_info(char *elf_header)
  * elf header file.
  * @elf_header: the elf header information.
  */
-int print_type_info(char *elf_header)
+void print_type_info(char *elf_header)
 {
 	int index = 0;
 
