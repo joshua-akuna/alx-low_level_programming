@@ -1,5 +1,6 @@
 #include <elf.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -31,18 +32,22 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("Usage: %s <ELF FILE>\n", argv[0]);
-		return (1);
+		dprintf(2, "Usage: elf_header elf_filename\n");
+		exit(98);
 	}
 
 	file_des = open(argv[1], O_RDONLY);
 	if (file_des == -1)
-		return (1);
-
+	{
+		dprintf(2, "Error: Can't open file\n");
+		exit(98);
+	}
 	bytes_read = read(file_des, buffer, 32);
 	if (bytes_read == -1 || bytes_read < 28)
-		return (1);
-
+	{
+		dprintf(2, "Error: Can't read file\n");
+		exit(98);
+	}
 	if (buffer[0] != 0x7f || buffer[1] != 'E' || buffer[2] != 'L'
 			|| buffer[3] != 'F')
 	{
@@ -59,6 +64,7 @@ int main(int argc, char **argv)
 	print_type_info(buffer);
 	print_entry_info(buffer);
 
+	close(file_des);
 	return (0);
 }
 
