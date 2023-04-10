@@ -63,9 +63,9 @@ int close_fd(int file_desc)
 
 /**
  * print_error - prints an error message and exit the progrma.
- * @name: a string.
+ * @arg: a string.
  * @action: an integer representing the action to take.
- * @exit_code: code to exit with.
+ * @code: code to exit with.
  * Return: nothing.
  */
 void print_error(char *arg, int action, int code)
