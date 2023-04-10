@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	int bytes_read = -1;
 
 	if (argc != 3)
-		print_error("cp", 0, 97);
+		print_error(argv[0], 0, 97);
 
 	file_from_desc = open(argv[1], O_RDONLY);
 	if (file_from_desc == -1)
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	if (bytes_read == -1)
 		print_error(argv[1], 1, 98);
 
-	if (close_fd(file_to_desc) || close_fd(file_from_desc))
+	if (close_fd(file_from_desc) || close_fd(file_to_desc))
 		exit(100);
 
 	return (0);
@@ -53,7 +53,7 @@ int close_fd(int file_desc)
 {
 	if (close(file_desc))
 	{
-		dprintf(2, "Error: Can't close fd %i\n", file_desc);
+		dprintf(2, "Error: Can't close fd %d\n", file_desc);
 		return (1);
 	}
 	return (0);
