@@ -73,10 +73,8 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 }
 
 /**
- * check_elf - Checks if a file is an ELF file.
- * @e_ident: A pointer to an array containing the ELF magic numbers.
- *
- * Description: If the file is not an ELF file - exit code 98.
+ * validate_elf - Checks if the argument is a valid ELF file.
+ * @e_ident: an array containing the ELF magic numbers.
  */
 void validate_elf(unsigned char *e_ident)
 {
@@ -297,10 +295,8 @@ void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 }
 
 /**
- * close_elf - Closes an ELF file.
- * @elf: The file descriptor of the ELF file.
- *
- * Description: If the file cannot be closed - exit code 98.
+ * close_file_desc - closes a file descriptor argument.
+ * @file_desc: a file descriptor for the elf file..
  */
 void close_file_desc(int file_desc)
 {
