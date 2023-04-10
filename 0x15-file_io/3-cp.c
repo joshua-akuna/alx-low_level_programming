@@ -15,11 +15,14 @@ void print_error(char *name, int action, int exit_code);
 int main(int argc, char **argv)
 {
 	int file_from_desc = -1, file_to_desc = -1;
-	int buffer[1024];
+	char buffer[1024];
 	int bytes_read = -1;
 
 	if (argc != 3)
-		print_error("cp", 0, 97);
+	{
+		dprintf(2, "%s\n", "Usage: cp file_from file_to");
+		exit(97);
+	}
 
 	file_from_desc = open(argv[1], O_RDONLY);
 	if (file_from_desc == -1)
