@@ -1,6 +1,6 @@
 #include "main.h"
 
-void close_fd(int file_desc);
+int close_fd(int file_desc);
 void print_error(char *name, int action, int exit_code);
 /**
  * main - copies the content of a file to another.
@@ -49,8 +49,8 @@ int main(int argc, char **argv)
 		}
 	}
 
-	close_fd(file_to_desc);
-	close_fd(file_from_desc);
+	if (close_fd(file_to_desc) || close_fd(file_from_desc))
+		exit(100);
 
 	return (0);
 }
@@ -60,13 +60,14 @@ int main(int argc, char **argv)
  * @file_desc: file descriptor to close.
  * Return: nothing.
  */
-void close_fd(int file_desc)
+int close_fd(int file_desc)
 {
 	if (close(file_desc))
 	{
 		dprintf(2, "Error: Can't close fd %i\n", file_desc);
-		exit(100);
+		return (1);
 	}
+	return (0);
 }
 
 /**
