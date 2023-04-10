@@ -241,7 +241,7 @@ void print_entry_info(char *elf_header)
 		while (elf_header[index] == 0 && index > 0x18)
 			index--;
 		printf("%x", elf_header[index--]);
-		while (i >= 0x18)
+		while (index >= 0x18)
 			printf("%02x", (unsigned char) elf_header[index--]);
 		printf("\n");
 	}
