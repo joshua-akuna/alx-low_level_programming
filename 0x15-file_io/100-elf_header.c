@@ -1,4 +1,9 @@
-#include "main.h"
+#include <elf.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#define _GNU_SOURCE
 void print_magic_info(char *elf_header);
 void print_class_info(char *elf_header);
 void print_data_info(char *elf_header);
