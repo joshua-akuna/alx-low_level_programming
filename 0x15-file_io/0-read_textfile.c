@@ -5,6 +5,9 @@
  * @filename: a string describing the path to the file to read.
  * @letters: the number of characters to read.
  * Return: the actual number of letters read and printed.
+ * 0 if the file cannot be opened or read.
+ * 0 if the filename is NULL.
+ * 0 if the write faile or does not return the expected amount of bytes.
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
@@ -24,5 +27,9 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	close(file_desc);
 
-	return (write(1, buffer, bytes_read));
+	bytes_read = write(1, buffer, bytes_read);
+
+	if (bytes_read != letters)
+		return (0);
+	return (bytes_read);
 }
