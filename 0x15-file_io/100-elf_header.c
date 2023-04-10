@@ -16,6 +16,7 @@ void print_type_info(unsigned int e_type, unsigned char *e_ident);
 void print_entry_info(unsigned long int e_entry, unsigned char *e_ident);
 void close_file_desc(int file_desc);
 void validate_elf(unsigned char *e_ident);
+void print_elf_header_info(Elf64_Ehdr *header);
 
 /**
  * main - prints specified information about an
@@ -56,6 +57,20 @@ int main(int argc, char *argv[])
 
 	validate_elf(header->e_ident);
 	printf("ELF Header:\n");
+	print_elf_header_info(header);
+	free(header);
+	close_file_desc(file_desc);
+	return (0);
+}
+
+/**
+ * print_elf_header_info - prints all the specified information
+ * of the elf header at the start of an ELF file..
+ * @header: a pointer to an array containing the information of
+ * the elf header.
+ */
+void print_elf_header_info(Elf64_Ehdr *header)
+{
 	print_magic_info(header->e_ident);
 	print_class_info(header->e_ident);
 	print_data_info(header->e_ident);
@@ -64,10 +79,6 @@ int main(int argc, char *argv[])
 	print_abi_version_info(header->e_ident);
 	print_type_info(header->e_type, header->e_ident);
 	print_entry_info(header->e_entry, header->e_ident);
-
-	free(header);
-	close_file_desc(file_desc);
-	return (0);
 }
 
 /**
