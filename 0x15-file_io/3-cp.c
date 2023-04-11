@@ -28,34 +28,28 @@ int main(int argc, char **argv)
 	file_to_desc = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	check_file_desc(file_from_desc, file_to_desc, argv);
 
-	do {
+	while (bytes_read == 1024)
+	{
 		bytes_read = read(file_from_desc, buffer, 1024);
 		if (bytes_read == -1)
 			check_file_desc(-1, 1, argv);
 		bytes_out = write(file_to_desc, buffer, bytes_read);
 		if (bytes_out == -1)
 			check_file_desc(1, -1, argv);
-	} while (bytes_read == 1024);
-
-
-	if (close_fd(file_from_desc) || close_fd(file_to_desc))
-		exit(100);
-
-	return (0);
-}
-
-/**
- * close_fd - closes a file descriptor.
- * @file_desc: file descriptor to close.
- * Return: 0 if file descriptors closed successfully, else 1.
- */
-int close_fd(int file_desc)
-{
-	if (close(file_desc) == -1)
-	{
-		dprintf(2, "Error: Can't close fd %d\n", file_desc);
-		return (1);
 	}
+
+
+	if (close(file_from_desc) == -1)
+	{
+		dprintf(2, "Error: Can't close fd %d\n", file_from_desc);
+		exit(100);
+	}      
+	if (close(file_to_desc) == -1)
+	{
+		dprintf(2, "Error: Can't close fd %d\n", file_to_desc);
+		exit(100);
+	}
+
 	return (0);
 }
 
