@@ -1,6 +1,5 @@
 #include "main.h"
 
-int close_fd(int file_desc);
 void check_file_desc(int file_from_desc, int file_to_desc, char **arg);
 /**
  * main - copies the content of a file to another.
@@ -14,7 +13,7 @@ void check_file_desc(int file_from_desc, int file_to_desc, char **arg);
  */
 int main(int argc, char **argv)
 {
-	int file_from_desc, file_to_desc;
+	int file_from_desc, file_to_desc, chk_close;
 	char buffer[1024];
 	ssize_t bytes_read, bytes_out;
 
@@ -38,13 +37,15 @@ int main(int argc, char **argv)
 			check_file_desc(1, -1, argv);
 	}
 
-
-	if (close(file_from_desc) == -1)
+	chk_close = close(file_from_desc);
+	if (chk_close == -1)
 	{
 		dprintf(2, "Error: Can't close fd %d\n", file_from_desc);
 		exit(100);
 	}
-	if (close(file_to_desc) == -1)
+
+	chk_close = close(file_to_desc);
+	if (chk_close == -1)
 	{
 		dprintf(2, "Error: Can't close fd %d\n", file_to_desc);
 		exit(100);
@@ -67,7 +68,7 @@ void check_file_desc(int file_from_desc, int file_to_desc, char **arg)
 		dprintf(2, "Error: Can't read from file %s\n", arg[1]);
 		exit(98);
 	}
-	else if (file_to_desc == -1)
+	if (file_to_desc == -1)
 	{
 		dprintf(2, "Error: Can't write to %s\n", arg[2]);
 		exit(99);
