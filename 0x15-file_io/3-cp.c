@@ -1,7 +1,7 @@
 #include "main.h"
 
 int close_fd(int file_desc);
-void print_error(char *arg, int action, int code);
+void check_file_desc(int file_from_desc, int file_to_desc, char **arg);
 /**
  * main - copies the content of a file to another.
  * @argc: number of arguments passed to main.
@@ -14,9 +14,9 @@ void print_error(char *arg, int action, int code);
  */
 int main(int argc, char **argv)
 {
-	int file_from_desc = -1, file_to_desc = -1;
+	int file_from_desc, file_to_desc;
 	char buffer[1024];
-	int bytes_read = -1;
+	ssize_t bytes_read, bytes_out;
 
 	if (argc != 3)
 	{
@@ -26,17 +26,15 @@ int main(int argc, char **argv)
 
 	file_from_desc = open(argv[1], O_RDONLY);
 	file_to_desc = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (file_from_desc == -1)
-		print_error(argv[1], 0, 98);
-	if (file_to_desc == -1)
-		print_error(argv[2], 1, 99);
+	check_file_desc(file_from_desc, file_to_desc, argv);
 
 	do {
 		bytes_read = read(file_from_desc, buffer, 1024);
 		if (bytes_read == -1)
-			print_error(argv[1], 1, 98);
-		if (write(file_to_desc, buffer, bytes_read) == -1)
-			print_error(argv[2], 2, 99);
+			check_file_desc(-1, 1, argv);
+		bytes_out = write(file_to_desc, buffer, bytes_read);
+		if (bytes_out == -1)
+			check_file_desc(1, -1, argv);
 	} while (bytes_read == 1024);
 
 
@@ -62,22 +60,22 @@ int close_fd(int file_desc)
 }
 
 /**
- * print_error - prints an error message and exit the progrma.
- * @arg: a string.
- * @action: an integer representing the action to take.
- * @code: code to exit with.
+ * check_file_desc - checks if the file descriptors are valid.
+ * @arg: an array of strings
+ * @file_from_desc: file descriptor of the file to read from.
+ * @file_to_desc: file descriptor of the file to write to.
  * Return: nothing.
  */
-void print_error(char *arg, int action, int code)
+void check_file_desc(int file_from_desc, int file_to_desc, char **arg)
 {
-	if (action == 0)
+	if (file_from_desc == -1)
 	{
-		dprintf(2, "Error: Can't read from file %s\n", arg);
-		exit(code);
+		dprintf(2, "Error: Can't read from file %s\n", arg[1]);
+		exit(98);
 	}
-	else if (action == 1)
+	else if (file_to_desc == -1)
 	{
-		dprintf(2, "Error: Can't write to %s\n", arg);
-		exit(code);
+		dprintf(2, "Error: Can't write to %s\n", arg[2]);
+		exit(99);
 	}
 }
