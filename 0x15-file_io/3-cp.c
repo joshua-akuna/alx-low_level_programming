@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	} while (bytes_read == 1024);
 
 
-	if (close_fd(file_to_desc) || close_fd(file_from_desc))
+	if (close_fd(file_from_desc) || close_fd(file_to_desc))
 		exit(100);
 
 	return (0);
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
  */
 int close_fd(int file_desc)
 {
-	if (close(file_desc))
+	if (close(file_desc) == -1)
 	{
 		dprintf(2, "Error: Can't close fd %d\n", file_desc);
 		return (1);
