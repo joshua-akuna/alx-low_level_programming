@@ -1,1 +1,0 @@
-This is a description of the ALXSE project 0x15-file_
