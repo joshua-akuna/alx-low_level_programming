@@ -8,5 +8,5 @@ int get_endianness(void)
 {
 	int n = 1;
 
-	return (*(char *)&n == 1)? 1 : 0;
+	return ((*(char *)&n == 1) ? 1 : 0);
 }
