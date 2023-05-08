@@ -1,6 +1,6 @@
 #include "main.h"
 
-void check_file_desc(int fd_src, int fd_dest, char *file_names[]);
+void validate_fd(int fd_src, int fd_dest, char *file_names[]);
 
 /**
  * main - copies the content of one file to another.
@@ -21,15 +21,15 @@ int main(int argc, char *argv[])
 	}
 	file_from_desc = open(argv[1], O_RDONLY);
 	file_to_desc = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
-	check_file_desc(file_from_desc, file_to_desc, argv);
+	validate_fd(file_from_desc, file_to_desc, argv);
 	while (bytes_read == 1024)
 	{
 		bytes_read = read(file_from_desc, buffer, 1024);
 		if (bytes_read == -1)
-			check_file_desc(-1, 0, argv);
+			validate_fd(-1, 0, argv);
 		bytes_out = write(file_to_desc, buffer, bytes_read);
 		if (bytes_out == -1)
-			check_file_desc(0, -1, argv);
+			validate_fd(0, -1, argv);
 	}
 	chk_close = close(file_from_desc);
 	if (chk_close == -1)
@@ -47,12 +47,12 @@ int main(int argc, char *argv[])
 }
 
 /**
- * check_file_desc - checks if files can be opened.
+ * validate_fd - checks if files can be opened.
  * @fd_src: the file descriptor to copy from.
  * @fd_dest: file descriptor to copy to
  * @file_names: array of string arguments
  */
-void check_file_desc(int fd_src, int fd_dest, char *file_names[])
+void validate_fd(int fd_src, int fd_dest, char *file_names[])
 {
 	if (fd_src == -1)
 	{
