@@ -10,7 +10,7 @@ void validate_fd(int fd_src, int fd_dest, char *file_names[]);
  */
 int main(int argc, char *argv[])
 {
-	int src, dest, chk_close;
+	int src, dest, fclose;
 	ssize_t bytes_read = 1024, bytes_out;
 	char buffer[1024];
 
@@ -31,14 +31,14 @@ int main(int argc, char *argv[])
 		if (bytes_out == -1)
 			validate_fd(0, -1, argv);
 	}
-	chk_close = close(src);
-	if (chk_close == -1)
+	fclose = close(src);
+	if (fclose == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", src);
 		exit(100);
 	}
-	chk_close = close(dest);
-	if (chk_close == -1)
+	fclose = close(dest);
+	if (fclose == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", src);
 		exit(100);
