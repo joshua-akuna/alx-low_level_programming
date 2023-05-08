@@ -1,6 +1,6 @@
 #include "main.h"
 
-void check_file_desc(int file_from_desc, int file_to_desc, char **argv);
+void check_file_desc(int fd_src, int fd_dest, char *file_names[]);
 
 /**
  * main - copies the content of one file to another.
@@ -48,20 +48,20 @@ int main(int argc, char *argv[])
 
 /**
  * check_file_desc - checks if files can be opened.
- * @file_from_desc: the file descriptor to copy from.
- * @file_to_desc: file descriptor to copy to
- * @argv: array of string arguments
+ * @fd_src: the file descriptor to copy from.
+ * @fd_dest: file descriptor to copy to
+ * @file_names: array of string arguments
  */
-void check_file_desc(int file_from_desc, int file_to_desc, char *argv[])
+void check_file_desc(int fd_src, int fd_dest, char *file_names[])
 {
-	if (file_from_desc == -1)
+	if (fd_src == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_names[1]);
 		exit(98);
 	}
-	if (file_to_desc == -1)
+	if (fd_dest == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_names[2]);
 		exit(99);
 	}
 }
