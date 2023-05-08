@@ -28,9 +28,11 @@ int main(int argc, char *argv[])
 
 	while (nread == 1024)
 	{
+		/* read and validate bytes from the src file into the buffer */
 		nread = read(src, buffer, 1024);
 		if (nread == -1)
 			validate_fd(-1, 0, argv);
+		/* write and validate bytes from the buffer to the destination file */
 		nwrite = write(dest, buffer, nread);
 		if (nwrite == -1)
 			validate_fd(0, -1, argv);
