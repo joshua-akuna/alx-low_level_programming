@@ -11,26 +11,31 @@ void validate_fd(int fd_src, int fd_dest, char *file_names[]);
 int main(int argc, char *argv[])
 {
 	int src, dest, fclose;
-	ssize_t bytes_read = 1024, bytes_out;
+	ssize_t nread = 1024, nwrite;
 	char buffer[1024];
 
+	/* validate the number of arguments */
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
 		exit(97);
 	}
+	/* opens the source and destination files */
 	src = open(argv[1], O_RDONLY);
 	dest = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
+	/* validates the file descriptors */
 	validate_fd(src, dest, argv);
-	while (bytes_read == 1024)
+
+	while (nread == 1024)
 	{
-		bytes_read = read(src, buffer, 1024);
-		if (bytes_read == -1)
+		nread = read(src, buffer, 1024);
+		if (nread == -1)
 			validate_fd(-1, 0, argv);
-		bytes_out = write(dest, buffer, bytes_read);
-		if (bytes_out == -1)
+		nwrite = write(dest, buffer, nread);
+		if (nwrite == -1)
 			validate_fd(0, -1, argv);
 	}
+	/* closes the file descriptors */
 	fclose = close(src);
 	if (fclose == -1)
 	{
