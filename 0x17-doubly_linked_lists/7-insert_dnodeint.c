@@ -12,45 +12,42 @@
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
 	dlistint_t *new_node;
-	dlistint_t *prev, *next;
-	unsigned int len = 0;
+	dlistint_t *prev = *h;
 
 	if (h == NULL)
 		return (NULL);
-	/* attaches the new_node as the head if idx is 0 */
-	if (idx == 0 || *h == NULL)
-		return (add_dnodeint(h, n));
-	/* else find the node at which the new node will be inserted */
-	next = *h;
-	while (next != NULL)
-	{
-		len++;
-		if (len - 1 == idx)
-			break;
-		next = next->next;
-	}
-	/* if the node at idx is not NULL, break the link and insert new node */
-	if (next)
-	{
-		/* creates a new node */
-		new_node = malloc(sizeof(dlistint_t));
-		if (new_node == NULL)
-		{
-			dprintf(2, "Can't malloc\n");
-			return (NULL);
-		}
-		new_node->n = n;
-		/* attaches the new node to the linked list */
-		/* at the specified index idx */
-		prev = next->prev;
-		prev->next = new_node;
-		new_node->prev = prev;
-		next->prev = new_node;
-		new_node->next = next;
+	/* creates a new node */
+	new_node = malloc(sizeof(dlistint_t));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->n = n;
 
-		return (new_node);
+	if (idx == 0)
+	{
+		if (prev != NULL)
+			prev->prev = new_node;
+		new_node->next = prev;
+		*h = new_node;
+		return (*h);
 	}
-	else if (next == NULL && len == idx)
-		return (add_dnodeint_end(h, n));
-	return (NULL);
+
+	if (prev == NULL)
+	{
+		free(new_node);
+		return (NULL);
+	}
+
+	while (prev->next != NULL && idx-- > 1)
+		prev = prev->next;
+	if (idx > 1)
+	{
+		free(new_node);
+		return (NULL);
+	}
+	new_node->next = prev->next;
+	new_node->prev = prev;
+	prev->next = new_node;
+	if (new_node->next != NULL)
+		new_node->next->prev = new_node;
+	return (new_node);
 }
