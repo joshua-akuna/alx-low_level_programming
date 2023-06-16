@@ -3,6 +3,7 @@
  * main - keygen5
  * @argc: int argument
  * @argv: a string array
+ * Return: Always 0
  */
 int main(int argc, char *argv[])
 {
