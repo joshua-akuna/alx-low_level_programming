@@ -13,7 +13,7 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 	int idx;
 	hash_node_t *node;
 
-	if (ht == NULL || ht->size == 0 || t->array == NULL
+	if (ht == NULL || ht->size == 0 || ht->array == NULL
 		|| key == NULL || *key == '\0')
 		return (NULL);
 
