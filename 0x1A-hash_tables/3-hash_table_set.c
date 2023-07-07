@@ -50,38 +50,3 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 
 	return (1);
 }
-
-/**
- * create_new_node - creates a new node of type hash_node_t.
- * @key: the key for the new_node.
- * @value: the value mapped to the key of the new_node.
- * Return: a new_node if successful else NULL.
- */
-hash_node_t *create_new_node(const char *key, const char *value)
-{
-	hash_node_t *new_node = NULL;
-	char *new_key = NULL, *new_value = NULL;
-
-	new_node = (hash_node_t *)malloc(sizeof(hash_node_t));
-	if (new_node == NULL)
-		return (NULL);
-
-	new_key = strdup(key);
-	if (new_key == NULL)
-	{
-		free(new_node);
-		return (NULL);
-	}
-	new_node->key = new_key;
-
-	new_value = strdup(value);
-	if (new_value == NULL)
-	{
-		free(new_key);
-		free(new_node);
-		return (NULL);
-	}
-	new_node->value = new_value;
-
-	return (new_node);
-}

@@ -84,5 +84,11 @@ typedef struct shash_table_s
 	shash_node_t *stail;
 } shash_table_t;
 
+shash_table_t *shash_table_create(unsigned long int size);
+int shash_table_set(shash_table_t *ht, const char *key, const char *value);
+void shash_table_print(const shash_table_t *ht);
+void shash_table_print_rev(const shash_table_t *ht);
 
+shash_node_t *create_snode(const char *key, const char *value);
+int add_to_list_sorted(shash_table_t *ht, shash_node_t *new_node);
 #endif /*_HASH_TABLES_H_*/
