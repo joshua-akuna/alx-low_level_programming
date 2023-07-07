@@ -8,8 +8,11 @@
 int main(void)
 {
 	shash_table_t *ht;
+	char *val = NULL;
 
 	ht = shash_table_create(1024);
+
+	printf("%lu\n", ht->size);
 
 	shash_table_set(ht, "y", "0");
 	shash_table_print(ht);
@@ -28,6 +31,13 @@ int main(void)
 	shash_table_set(ht, "m", "7");
 	shash_table_print(ht);
 	shash_table_print_rev(ht);
+
+	val = shash_table_get(ht, "z");
+	printf("%s\n", val);
+
+	val = shash_table_get(ht, "a");
+	printf("%s\n", val);
+
 	shash_table_delete(ht);
 	return (EXIT_SUCCESS);
 }
