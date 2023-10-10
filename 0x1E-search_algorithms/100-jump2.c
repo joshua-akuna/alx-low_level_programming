@@ -1,5 +1,4 @@
 #include "search_algos.h"
-#include <math.h>
 
 size_t min_value(int num1, int num2);
 
