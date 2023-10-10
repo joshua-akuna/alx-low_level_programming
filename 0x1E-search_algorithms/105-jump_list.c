@@ -42,7 +42,7 @@ listint_t *jump_list(listint_t *list, size_t size, int value)
 				node->index, node->n);
 	}
 	index = prev - (step - prev);
-	printf("Value found between indexez [%ld] and [%ld]\n",
+	printf("Value found between indexes [%ld] and [%ld]\n",
 			index, prev);
 
 	while (index <= prev && index < size)

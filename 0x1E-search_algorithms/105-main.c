@@ -25,7 +25,7 @@ int main(void)
 	res = jump_list(list, size, 2);
 	printf("Found %d at index: %ld\n\n", 2, res->index);
 	res = jump_list(list, size, 999);
-	printf("Found %d at index: %p\n\n", 2, (void *) res);
+	printf("Found %d at index: %p\n\n", 999, (void *) res);
 
 	free_list(list);
 	return (EXIT_SUCCESS);
