@@ -1,7 +1,4 @@
 #include "search_algos.h"
-#include <math.h>
-
-size_t min_value(int num1, int num2);
 
 /**
  * jump_search - searches for a value in a sorted array of integers
@@ -45,15 +42,4 @@ int jump_search(int *array, size_t size, int value)
 	}
 
 	return (-1);
-}
-
-/**
- * min_value - calculates the minimum of 2 numbers
- * @num1: the first number
- * @num2: the second number
- * Return: the minimum of @num1 and @num2
- */
-size_t min_value(int num1, int num2)
-{
-	return (num1 > num2 ? num2 : num1);
 }
