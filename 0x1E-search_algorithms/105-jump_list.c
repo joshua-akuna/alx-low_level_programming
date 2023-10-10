@@ -1,7 +1,5 @@
 #include "search_algos.h"
 
-listint_t *find_node_at_index(listint_t *list, size_t index);
-
 /**
  * jump_list - searches for a value in a sorted list of integers
  *	using the Jump search algorithm
@@ -14,65 +12,33 @@ listint_t *find_node_at_index(listint_t *list, size_t index);
  */
 listint_t *jump_list(listint_t *list, size_t size, int value)
 {
-	size_t prev, step, index;
-	listint_t *node = NULL;
+	size_t index;
+	listint_t *prev = NULL;
 
 	if (list == NULL)
 		return (NULL);
 
-	prev = 0;
-	step = sqrt(size);
-	node = find_node_at_index(list, prev);
-	if (node == NULL)
-		return (NULL);
+	index = 0;
 
-	while (node->n < value)
+	while (index < size && list->next && list->n < value)
 	{
-		prev = step;
-		step += sqrt(size);
+		prev = list;
+		index += sqrt(size);
 
-		if (prev >= size)
-			break;
-
-		node = find_node_at_index(list, prev);
-		if (node == NULL)
-			return (NULL);
-
+		while (list->next && list->index < index)
+			list = list->next;
 		printf("Value checked at index [%ld] = [%d]\n",
-				node->index, node->n);
+				list->index, list->n);
 	}
-	index = prev - (step - prev);
 	printf("Value found between indexes [%ld] and [%ld]\n",
-			index, prev);
+			prev->index, list->index);
 
-	while (index <= prev && index < size)
+	while (prev->next && prev->index <= list->index && prev->index < size)
 	{
-		node = find_node_at_index(list, index);
-		if (node == NULL)
-			return (NULL);
-
-		printf("Value checked at index [%ld] = [%d]\n",
-				node->index, node->n);
-		if (node->n == value)
-			return (node);
-		index++;
+		printf("Value checked at index [%ld] = [%d]\n", prev->index, prev->n);
+		if (prev->n == value)
+			return (prev);
+		prev = prev->next;
 	}
 	return (NULL);
-}
-
-/**
- * find_node_at_index - finds the node whose value of its index property
- *	equals the index argument
- * @list: the list to search in
- * @index: the index node to search for
- *
- * Return: the node whose value of index property equals the index argument
- */
-listint_t *find_node_at_index(listint_t *list, size_t index)
-{
-	listint_t *node = list;
-
-	while (node && node->index < index)
-		node = node->next;
-	return (node->index == index ? node : NULL);
 }
