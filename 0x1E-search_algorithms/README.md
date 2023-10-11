@@ -682,3 +682,11 @@ Found 999 at index: (nil)
 File: [106-linear_skip.c]()
 
 ### 14. Big O #6
+What is the *time complexity* (average case) of a jump search in a singly linked list of size *n*, using *step = sqrt(n)*?
+
+File: [107-O]()
+
+### 15. Big 0 #7
+What is the *time complexity* (average case) of a jump search in a skip list of size *n*, with an express lane using *step = sqrt(n)*?
+
+File: [108-O]()
